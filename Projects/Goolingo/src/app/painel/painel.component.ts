@@ -27,43 +27,43 @@ export class PainelComponent implements OnInit {
   ngOnInit() {
   }
 
-  public updateAnswer(answer: Event): void {
+  updateAnswer(answer: Event): void {
     this.resposta = ((<HTMLInputElement>answer.target).value);
   }
 
-  public checkAnswer(): void {
+  checkAnswer(): void {
     // </> console.log(this.tentativas);
 
     if (this.rodadaFrase.frasePtBr === this.resposta) {
       alert('A tradução está correta');
 
-      // trocar pergunta da rodada
       this.rodada++;
-
-      // progresso =   25%,50%,75%    + 25%
       this.progresso = this.progresso + (100 / this.frases.length);
 
-      // atualiza o objeto da frase
-      this.rodadaFrase = this.frases[this.rodada];
-
-      // limpar resposta
-      this.resposta = '';
+      if (this.rodada === 4) {
+        alert(' Você concluiu com sucesso! ');
+      }
+      this.UpdateRound();
 
     } else {
-
       this.tentativas--;
 
       if (this.tentativas < 0) {
         alert('Você perdeu todas as tentativas');
-
         // ToDo: desabilitar o botão de resposta.
-
 
       } else {
         alert('A resposta está Errada.');
       }
+
     }
 
     console.log(this.tentativas);
+  }
+
+  UpdateRound() {
+    this.rodadaFrase = this.frases[this.rodada];
+    this.resposta = '';
+
   }
 }

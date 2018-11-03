@@ -24,11 +24,14 @@ export class PainelComponent implements OnInit {
   // @Output() public endGame: EventEmitter<string> = new EventEmitter();
 
   constructor() {
-    this.rodadaFrase = this.frases[this.rodada];
-    console.log(this.rodadaFrase);
+    console.log('PainelComp > constructor: rodada ' + this.rodada);
+
   }
 
   ngOnInit() {
+    this.rodadaFrase = this.frases[this.rodada];
+    console.log('PainelComp > OnInit: rodadaFrase ' + this.rodadaFrase);
+
   }
 
   updateAnswer(answer: Event): void {
@@ -36,23 +39,34 @@ export class PainelComponent implements OnInit {
   }
 
   checkAnswer(): void {
-    // </> console.log(this.tentativas);
 
+    // ACERTOU!
     if (this.rodadaFrase.frasePtBr === this.resposta) {
+      console.log('PainelComp > CheckAnswer: ACERTOU!');
+      console.log('ACERTOU: rodada ' + this.rodada);
+
       alert('A tradução está correta');
 
       this.rodada++;
       this.progresso = this.progresso + (100 / this.frases.length);
+      console.log('Incrementado: rodada++ ' + this.rodada + ', progresso : ' + this.progresso + '%');
 
       if (this.rodada === 4) {
+        console.log('start ENDGAME: ' + this.rodada);
         this.endGame.emit('Vitoria!');
-      }
-      this.UpdateRound();
 
+      } else {
+        this.UpdateRound();
+      }
+
+      // ERROU!
     } else {
+      console.log('CheckAnswer: ERROU!');
+
       this.tentativas--;
 
       if (this.tentativas < 0) {
+
         alert('Você perdeu todas as tentativas');
         this.endGame.emit('Derrota!');
 
@@ -61,13 +75,12 @@ export class PainelComponent implements OnInit {
       }
 
     }
+    this.resposta = '';
 
-    console.log(this.tentativas);
   }
 
   UpdateRound() {
     this.rodadaFrase = this.frases[this.rodada];
-    this.resposta = '';
 
   }
 }

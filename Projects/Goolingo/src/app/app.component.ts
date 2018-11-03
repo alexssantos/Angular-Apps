@@ -9,9 +9,11 @@ export class AppComponent {
   title = 'Goolingo';
 
   public jogoEmAndamento = true;
+  public tipoEncerramento: string;
 
   public EndGame(tipo: string): void {
     console.log(tipo);
     this.jogoEmAndamento = false;
+    this.tipoEncerramento = tipo;
   }
 }

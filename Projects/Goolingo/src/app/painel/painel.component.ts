@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
 import { Frase } from '../shared/frase.model';
 import { FRASES } from './frases-mock';
 
@@ -7,7 +7,7 @@ import { FRASES } from './frases-mock';
   templateUrl: './painel.component.html',
   styleUrls: ['./painel.component.css']
 })
-export class PainelComponent implements OnInit {
+export class PainelComponent implements OnInit, OnDestroy {
 
   public frases: Frase[] = FRASES;
   public rodadaFrase: Frase;
@@ -25,13 +25,15 @@ export class PainelComponent implements OnInit {
 
   constructor() {
     console.log('PainelComp > constructor: rodada ' + this.rodada);
-
   }
 
   ngOnInit() {
     this.rodadaFrase = this.frases[this.rodada];
     console.log('PainelComp > OnInit: rodadaFrase ' + this.rodadaFrase);
+  }
 
+  ngOnDestroy(): void {
+    console.log('PainelComp > OnDestroy ');
   }
 
   updateAnswer(answer: Event): void {
@@ -59,7 +61,7 @@ export class PainelComponent implements OnInit {
         this.UpdateRound();
       }
 
-      // ERROU!
+    // ERROU!
     } else {
       console.log('CheckAnswer: ERROU!');
 
@@ -74,10 +76,10 @@ export class PainelComponent implements OnInit {
         alert('A resposta está Errada.');
       }
 
-    }
+    }// else
     this.resposta = '';
 
-  }
+  }// metodo
 
   UpdateRound() {
     this.rodadaFrase = this.frases[this.rodada];

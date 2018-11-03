@@ -1,3 +1,5 @@
 <app-topo></app-topo>
-<app-painel (endGame)="EndGame($event)"></app-painel>
+<div *ngIf=jogoEmAndamento>
+  <app-painel (endGame)="EndGame($event)"></app-painel>
+</div>
 

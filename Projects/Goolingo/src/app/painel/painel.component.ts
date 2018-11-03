@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Frase } from '../shared/frase.model';
 import { FRASES } from './frases-mock';
 
@@ -18,6 +18,10 @@ export class PainelComponent implements OnInit {
   public rodada = 0;
   public progresso = 0;
   public tentativas = 3;
+
+  // exposição para componentes pai
+  @Output() public endGame = new EventEmitter();
+  // @Output() public endGame: EventEmitter<string> = new EventEmitter();
 
   constructor() {
     this.rodadaFrase = this.frases[this.rodada];
@@ -41,7 +45,7 @@ export class PainelComponent implements OnInit {
       this.progresso = this.progresso + (100 / this.frases.length);
 
       if (this.rodada === 4) {
-        alert(' Você concluiu com sucesso! ');
+        this.endGame.emit('Vitoria!');
       }
       this.UpdateRound();
 
@@ -50,7 +54,7 @@ export class PainelComponent implements OnInit {
 
       if (this.tentativas < 0) {
         alert('Você perdeu todas as tentativas');
-        // ToDo: desabilitar o botão de resposta.
+        this.endGame.emit('Derrota!');
 
       } else {
         alert('A resposta está Errada.');

@@ -41,10 +41,11 @@ export class PainelComponent implements OnInit, OnDestroy {
   }
 
   checkAnswer(): void {
+    console.log('PainelComp > CheckAnswer');
 
     // ACERTOU!
     if (this.rodadaFrase.frasePtBr === this.resposta) {
-      console.log('PainelComp > CheckAnswer: ACERTOU!');
+
       console.log('ACERTOU: rodada ' + this.rodada);
 
       alert('A tradução está correta');
@@ -61,14 +62,13 @@ export class PainelComponent implements OnInit, OnDestroy {
         this.UpdateRound();
       }
 
-    // ERROU!
+      // ERROU!
     } else {
       console.log('CheckAnswer: ERROU!');
 
       this.tentativas--;
 
       if (this.tentativas < 0) {
-
         alert('Você perdeu todas as tentativas');
         this.endGame.emit('Derrota!');
 

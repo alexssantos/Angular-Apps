@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Oferta } from '../shared/models/oferta';
-import { resolve } from 'dns';
-import { reject } from 'q';
 
 @Injectable({
     providedIn: 'root'

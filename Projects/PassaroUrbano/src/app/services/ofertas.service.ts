@@ -2,30 +2,36 @@ import { Injectable } from '@angular/core';
 import { Oferta } from '../shared/models/oferta';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class OfertasService {
 
-  ofertas: Array<Oferta>;
+    ofertas: Array<Oferta>;
 
-  constructor() { }
+    constructor() { }
 
-  public getOfertas2() {
-    return this.getOfertas2;
-  }
+    public getOfertas2() {
+        return this.getOfertas2;
+    }
 
-  public getOfertas(): Promise<Oferta[]> {
+    public getOfertas(): Promise<Oferta[]> {
 
-    return new Promise((resolve, reject) => {
-      console.log('Passou no Primise');
+        return new Promise((resolve, reject) => {
+            console.log('Passou no Promise');
+            let flag = true;
+            if (flag) {
+                setTimeout(() => resolve(this.ofertas), 3000);
 
-      let flag = true;
-      if (flag) {
-        resolve(this.ofertas);
-
-      } else {
-        reject({ erroCode: 404, erroMessage: 'Not Found'});
-      }
-    });
-  }
+            } else {
+                reject({ erroCode: 404, erroMessage: 'Not Found' });
+            }
+        })
+        .then((ofertas: Oferta[]) => {  // sincrona
+            // logica
+            console.log('primeiro then');
+            return ofertas;
+        });
+        // .then
+        // .then
+    }
 }

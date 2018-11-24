@@ -3,25 +3,28 @@ import { OfertasService } from '../services/ofertas.service';
 import { Oferta } from '../shared/models/oferta';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
-  providers: [OfertasService]
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    providers: [OfertasService]
 })
 export class HomeComponent implements OnInit {
 
-  public ofertas: Oferta[];
+    public ofertas: Oferta[];
 
-  constructor(
-    private ofertasService: OfertasService
-  ) { }
+    constructor(
+        private ofertasService: OfertasService
+    ) { }
 
-  ngOnInit() {
+    ngOnInit() {
 
-    this.ofertasService.getOfertas().then(
-      (ofertas: Oferta[]) => this.ofertas = ofertas,
-      (param: any) => console.log(param)
-    );
-  }
+        this.ofertasService.getOfertas()
+            .then((ofertas: Oferta[]) => this.ofertas = ofertas,  // se foi resolvida
+                (param: any) => console.log(param)              // se foi rejetada
+            )
+            .catch (( param: any ) => {
+                console.log(param);
+            });
+    }
 
 }

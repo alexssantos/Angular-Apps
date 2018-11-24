@@ -17,15 +17,15 @@ export class OfertasService {
   public getOfertas(): Promise<Oferta[]> {
 
     return new Promise((resolve, reject) => {
-      Console.log('Passou no Primise');
+      console.log('Passou no Primise');
 
       let flag = true;
       if (flag) {
-        resolve(this.ofertas)
+        resolve(this.ofertas);
 
       } else {
         reject({ erroCode: 404, erroMessage: 'Not Found'});
       }
-    })
+    });
   }
 }

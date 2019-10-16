@@ -36,12 +36,16 @@ export class PainelComponent implements OnInit, OnDestroy {
 		console.log('PainelComp > OnDestroy ');
 	}
 
-	updateAnswer(answer: Event): void {
-		this.resposta = ((<HTMLInputElement>answer.target).value);
-	}
+	// updateAnswer(answer: Event): void {
+	// 	this.resposta = ((<HTMLInputElement>answer.target).value);
+	// }
 
-	checkAnswer(): void {
+	checkAnswer(answer: string): void {
 		console.log('PainelComp > CheckAnswer');
+
+		this.resposta = answer;
+		console.log('answer ' + answer);
+
 
 		// ACERTOU!
 		if (this.rodadaFrase.frasePtBr === this.resposta) {
@@ -75,7 +79,6 @@ export class PainelComponent implements OnInit, OnDestroy {
 			} else {
 				alert('A resposta está Errada.');
 			}
-
 		}// else
 		this.resposta = '';
 

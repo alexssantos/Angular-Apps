@@ -6,45 +6,40 @@ import { Coracao } from '../shared/coracao.model';
 	templateUrl: './tentativas.component.html',
 	styleUrls: ['./tentativas.component.css']
 })
-export class TentativasComponent implements OnInit, OnChanges
-{
+export class TentativasComponent implements OnInit, OnChanges {
 
 	@Input() public tentativas: number;
 
-	public arrayCoracoes: Coracao[] = [
-		new Coracao(true),
-		new Coracao(true),
-		new Coracao(true)
-	];
+	private max_tentativas: number = 3;
+	public arrayCoracoes: Coracao[] = [];
 
-	constructor()
-	{
+	constructor() {
 		console.log('tentativasComp > constructor: Corações[] ' + this.arrayCoracoes);
-
+		this.setTentativas();
 	}
 
-	ngOnChanges()
-	{
+	ngOnInit() {
+	}
+
+	ngOnChanges() {
 		console.log('tentativasComp > OnChange: tentativas : ', this.tentativas);
 
-		if (this.tentativas !== this.arrayCoracoes.length)
-		{
+		const diff = this.arrayCoracoes.length - this.tentativas;
+		if (diff > 0) {
 
-			this.arrayCoracoes.forEach(coracao =>
-			{
-				let tirouCoracao = false;
-				if (coracao.cheio !== tirouCoracao)
-				{
+			let ix = 0;
+			this.arrayCoracoes.forEach(coracao => {
+				if (ix < diff) {
 					coracao.cheio = false;
-					tirouCoracao = false;
 				}
+				ix++;
 			});
-			this.arrayCoracoes[0].cheio = false;
 		}
 	}
 
-	ngOnInit()
-	{
+	private setTentativas(): void {
+		for (let i = 0; i < this.max_tentativas; i++) {
+			this.arrayCoracoes[i] = new Coracao(true);
+		}
 	}
-
 }

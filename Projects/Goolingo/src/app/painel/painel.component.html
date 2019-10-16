@@ -1,51 +1,42 @@
 <div class="container">
-  <div class="jumbotron">
+	<div class="jumbotron">
+		<!-- progresso + Tentativas -->
+		<div class="row">
+			<!-- Barra de progresso -->
+			<div class="col-sm-6">
+				<app-progresso [progresso]="progresso"></app-progresso>
+			</div>
 
-    <!-- progresso + Tentativas -->
-    <div class="row">
+			<!-- Corações / tentativas -->
+			<div class="col-sm-6">
+				<div class="d-flex justify-content-end">
+					<app-tentativas [tentativas]="tentativas"></app-tentativas>
+				</div>
+			</div>
+		</div>
 
-      <!-- Barra de progresso -->
-      <div class="col-sm-6">
-        <app-progresso [progresso]="progresso"></app-progresso>
-      </div>
+		<!-- Frase em Ingles -->
+		<div class="row">
+			<div class="col">
+				<h6>{{ instrucao }}</h6>
+				<p>{{ rodadaFrase.fraseEng }}</p>
+				<div class="form-group">
+					<textarea class="form-control" rows="3" (input)="updateAnswer($event)" [value]="resposta">
 
-      <!-- Corações / tentativas -->
-      <div class="col-sm-6">
-        <div class="d-flex justify-content-end">
-          <app-tentativas [tentativas]="tentativas"></app-tentativas>
-        </div>
-      </div>
-    </div>
+					</textarea>
+				</div>
+			</div>
+		</div>
 
-    <!-- Frase em Ingles -->
-    <div class="row">
-      <div class="col">
-        <h6>{{ instrucao }}</h6>
-        <p> {{ rodadaFrase.fraseEng }}</p>
-        <div class="form-group">
-          <textarea
-            class="form-control"
-            rows="3"
-            (input)="updateAnswer($event)"
-            [value]="resposta">
-          </textarea>
-        </div>
-      </div>
-    </div>
-
-    <!-- area de resposta -->
-    <div class="row">
-      <div class="col">
-        <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-primary btn-lg"
-            (click)="checkAnswer()">
-              Enviar
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </div>
+		<!-- area de resposta -->
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-end">
+					<button type="button" class="btn btn-primary btn-lg" (click)="checkAnswer()">
+						Enviar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

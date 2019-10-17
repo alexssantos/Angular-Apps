@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Goolingo';
+	title = 'Goolingo';
 
-  public jogoEmAndamento = true;
-  public tipoEncerramento: string;
+	public jogoEmAndamento = true;
+	public tipoEncerramento: string;
 
-  public EndGame(tipo: string): void {
-    console.log(tipo);
-    this.jogoEmAndamento = false;
-    this.tipoEncerramento = tipo;
-  }
+	public EndGame(tipo: string): void {
+		console.log(tipo);
+		this.jogoEmAndamento = false;
+		this.tipoEncerramento = tipo;
+	}
 
-  public RestartGame(): void {
-    this.jogoEmAndamento = true;
-    this.tipoEncerramento = undefined;
-  }
+	public RestartGame(): void {
+		this.jogoEmAndamento = true;
+		this.tipoEncerramento = undefined;
+	}
 }

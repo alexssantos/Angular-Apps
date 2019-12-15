@@ -1,7 +1,6 @@
 {
 	"files.encoding": "utf8",
 	"files.autoGuessEncoding": false,
-	"editor.renderWhitespace": "all",
 	"editor.insertSpaces": false,
 	"editor.detectIndentation": false,
 	"editor.renderWhitespace": "all",
@@ -70,7 +69,7 @@
 		"editor.defaultFormatter": "ms-vscode.csharp"
 	},
 	"workbench.tree.indent": 20,
-	"workbench.colorTheme": "One Dark Pro Vivid",
+	// "workbench.colorTheme": "One Dark Pro Vivid",
 	"files.autoSave": "afterDelay",
 	"typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
@@ -79,5 +78,5 @@
 	"editor.fontSize": 16,
 	"[html]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	},
+	}
 }

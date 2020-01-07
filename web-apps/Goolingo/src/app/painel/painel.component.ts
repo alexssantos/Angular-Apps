@@ -21,7 +21,6 @@ export class PainelComponent implements OnInit, OnDestroy {
 
 	// exposição para componentes pai
 	@Output() public endGame = new EventEmitter();
-	// @Output() public endGame: EventEmitter<string> = new EventEmitter();
 
 	constructor() {
 		console.log('PainelComp > constructor: rodada ' + this.rodada);
@@ -29,63 +28,44 @@ export class PainelComponent implements OnInit, OnDestroy {
 
 	ngOnInit() {
 		this.rodadaFrase = this.frases[this.rodada];
-		console.log('PainelComp > OnInit: rodadaFrase ' + this.rodadaFrase);
+		// console.log('PainelComp > OnInit: rodadaFrase ' + this.rodadaFrase);
 	}
 
 	ngOnDestroy(): void {
 		console.log('PainelComp > OnDestroy ');
 	}
 
-	// updateAnswer(answer: Event): void {
-	// 	this.resposta = ((<HTMLInputElement>answer.target).value);
-	// }
-
 	checkAnswer(answer: string): void {
-		console.log('PainelComp > CheckAnswer');
-
 		this.resposta = answer;
-		console.log('answer ' + answer);
-
 
 		// ACERTOU!
 		if (this.rodadaFrase.frasePtBr === this.resposta) {
-
-			console.log('ACERTOU: rodada ' + this.rodada);
-
 			alert('A tradução está correta');
-
 			this.rodada++;
 			this.progresso = this.progresso + (100 / this.frases.length);
-			console.log('Incrementado: rodada++ ' + this.rodada + ', progresso : ' + this.progresso + '%');
 
 			if (this.rodada === 4) {
-				console.log('start ENDGAME: ' + this.rodada);
 				this.endGame.emit('Vitoria!');
-
 			} else {
 				this.UpdateRound();
-			}
+			}// else
 
-			// ERROU!
+			// ERROU
 		} else {
-			console.log('CheckAnswer: ERROU!');
-
 			this.tentativas--;
 
 			if (this.tentativas < 0) {
 				alert('Você perdeu todas as tentativas');
 				this.endGame.emit('Derrota!');
-
 			} else {
 				alert('A resposta está Errada.');
-			}
+			}// else
 		}// else
-		this.resposta = '';
 
-	}// metodo
+		this.resposta = '';
+	}// func
 
 	UpdateRound() {
 		this.rodadaFrase = this.frases[this.rodada];
-
 	}
 }

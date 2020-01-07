@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { timingSafeEqual } from 'crypto';
 
 @Component({
     selector: 'app-board',
@@ -29,13 +28,18 @@ export class BoardComponent implements OnInit {
 
     // event click handler
     private makeMove(idx: number): void {
+        // validação de click
         if (!this.squares[idx]) {
+            // (start, deleteCount, NewElement)
             this.squares.splice(idx, 1, this.player);
-
+            // next player
+            this.xIsNext = !this.xIsNext;
         }
+
+        this.winner = this.calculateWinner();
     }
 
-    private calculateWinner(): void {
+    private calculateWinner(): any {
         const answerLines = [
             [0, 1, 2],
             [3, 4, 5],
@@ -51,6 +55,7 @@ export class BoardComponent implements OnInit {
         for (let i = 0; i < answerLines.length; i++) {
             const [a, b, c] = answerLines[i];
 
+            // validando se fez linha A, B e C para cada jogada.
             if (
                 this.squares[a] &&
                 this.squares[a] === this.squares[b] &&
@@ -58,7 +63,7 @@ export class BoardComponent implements OnInit {
             ) {
                 return this.squares[a];
             }
-
         }
+        return null;
     }
 }

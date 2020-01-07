@@ -2,9 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'app-square',
-    template: `
-        <button> {{ value }} </button>
-    `,
+    templateUrl: './square.component.html',
     styles: [
         `button {
             width: 100%;

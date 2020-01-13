@@ -9,18 +9,18 @@ import { LoginComponent } from './access/login/login.component';
 import { SignUpComponent } from './access/sign-up/sign-up.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AccessComponent,
-    BannerComponent,
-    LoginComponent,
-    SignUpComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		AccessComponent,
+		BannerComponent,
+		LoginComponent,
+		SignUpComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Imagem } from './imagem.model';
 
 @Component({
 	selector: 'app-banner',
@@ -16,21 +17,41 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 			])
 		])
 	]
-
 })
 export class BannerComponent implements OnInit {
 
-
 	public stateStr: string = 'escondido';
+	public Imagens: Array<Imagem> = [
+		{ state: 'visivel', url: '/assets/banner-acesso/img_1.png' },
+		{ state: 'escondido', url: '/assets/banner-acesso/img_2.png' },
+		{ state: 'escondido', url: '/assets/banner-acesso/img_3.png' },
+		{ state: 'escondido', url: '/assets/banner-acesso/img_4.png' },
+		{ state: 'escondido', url: '/assets/banner-acesso/img_5.png' },
+	]
 
 	constructor() { }
 
 	ngOnInit() {
+		setTimeout(() => {
+			this.nextSlide();
+		}, 2000);
 	}
 
-	private switchImage(): void {
-		this.stateStr = (this.stateStr === 'escondido') ? 'visivel' : 'escondido';
-		console.log(this.stateStr);
+	public nextSlide(): void {
+		var iNext = 0;
+
+		for (let i = 0; i < this.Imagens.length; i++) {
+			if (this.Imagens[i].state === 'visivel') {
+				this.Imagens[i].state = 'escondido';
+				iNext = (i === (this.Imagens.length - 1)) ? 0 : i + 1;
+			}
+		}
+		this.Imagens[iNext].state = 'visivel';
+
+		setTimeout(() => {
+			//RECURSAO
+			this.nextSlide();
+		}, 2000);
 	}
 
 }

@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 export class MyAuthService {
 	private idToken: string;
 
-	constructor(private router: Router) {}
+	constructor(private router: Router) { }
 
 	public CreateUser(user: User): void {
 		console.log(user);
@@ -46,16 +46,14 @@ export class MyAuthService {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then((user: any) => {
-				if (user) {
-					firebase
-						.auth()
-						.currentUser.getIdToken()
-						.then((tokenId: string) => {
-							this.idToken = tokenId;
-							this.router.navigate(["/home"]);
-							return true;
-						});
-				}
+				if (!user) return false;
+
+				firebase.auth().currentUser.getIdToken()
+					.then((tokenId: string) => {
+						this.idToken = tokenId;
+						this.router.navigate(["/home"]);
+						return true;
+					});
 			})
 			.catch((error: Error) => {
 				console.log(error);

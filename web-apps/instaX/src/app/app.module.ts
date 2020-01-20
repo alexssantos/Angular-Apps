@@ -14,6 +14,7 @@ import { SignUpComponent } from "./access/sign-up/sign-up.component";
 import { MyAuthService } from "./services/my-auth.service";
 import { HomeComponent } from './home/home.component';
 import { PostsComponent } from './home/posts/posts.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
 	declarations: [
@@ -32,8 +33,9 @@ import { PostsComponent } from './home/posts/posts.component';
 		ReactiveFormsModule
 	],
 	providers: [
-		MyAuthService
+		MyAuthService,
+		AuthGuardService
 	],
 	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

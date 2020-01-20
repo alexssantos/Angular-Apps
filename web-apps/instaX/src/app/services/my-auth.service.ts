@@ -51,6 +51,7 @@ export class MyAuthService {
 				firebase.auth().currentUser.getIdToken()
 					.then((tokenId: string) => {
 						this.idToken = tokenId;
+						localStorage.setItem("idToken", this.idToken);
 						this.router.navigate(["/home"]);
 						return true;
 					});
@@ -60,5 +61,10 @@ export class MyAuthService {
 				return false;
 			});
 		return false;
+	}
+
+	public isAuthenticated(): boolean {
+		let token: string = localStorage.getItem("idToken");
+		return (token) ? true : false;
 	}
 }

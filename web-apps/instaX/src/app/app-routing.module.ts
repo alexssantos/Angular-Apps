@@ -8,6 +8,17 @@ const routes: Routes = [
 	{ path: "home", component: HomeComponent }
 ];
 
+/*ROUTER SAMPLE
+const routes: Routes = [
+	{ path: 'home', 		component: HomeComponent },
+	{ path: 'about', 		component: AboutComponent },
+	{ path: 'privacy', 	component: PrivacyComponent },
+	{ path: 'terms', 		component: TermsComponent },
+	{ path: '', 			redirectTo: '/home', pathMatch: 'full' },
+	{ path: '**', 		component: PageNotFoundComponent }
+];
+*/
+
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule]

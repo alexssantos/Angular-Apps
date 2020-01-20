@@ -1,7 +1,14 @@
 import { User } from "../models/user.model";
 import * as firebase from "firebase";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
+@Injectable()
 export class MyAuthService {
+	private idToken: string;
+
+	constructor(private router: Router) {}
+
 	public CreateUser(user: User): void {
 		console.log(user);
 
@@ -39,11 +46,19 @@ export class MyAuthService {
 			.auth()
 			.signInWithEmailAndPassword(email, password)
 			.then((user: any) => {
-				console.log("LOGIN DONE", user);
-				if (user) return true;
+				if (user) {
+					firebase
+						.auth()
+						.currentUser.getIdToken()
+						.then((tokenId: string) => {
+							this.idToken = tokenId;
+							this.router.navigate(["/home"]);
+							return true;
+						});
+				}
 			})
 			.catch((error: Error) => {
-				console.log("LOGIN ERROR", error);
+				console.log(error);
 				return false;
 			});
 		return false;

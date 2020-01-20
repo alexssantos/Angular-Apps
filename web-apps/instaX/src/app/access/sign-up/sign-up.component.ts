@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormGroup, FormControl } from "@angular/forms";
+import { MyAuthService } from "src/app/services/my-auth.service";
+import { User } from "../../models/user.model";
 
 @Component({
 	selector: "app-sign-up",
@@ -16,7 +18,7 @@ export class SignUpComponent implements OnInit {
 		password: new FormControl()
 	});
 
-	constructor() {}
+	constructor(private myAuthService: MyAuthService) {}
 
 	ngOnInit() {}
 
@@ -26,5 +28,14 @@ export class SignUpComponent implements OnInit {
 
 	public submitNewUser(): void {
 		console.log(this.formSignup);
+
+		let user: User = new User(
+			this.formSignup.value.email,
+			this.formSignup.value.full_name,
+			this.formSignup.value.user_name,
+			this.formSignup.value.password
+		);
+
+		this.myAuthService.CreateUser(user);
 	}
 }

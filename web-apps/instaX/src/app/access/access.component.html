@@ -5,9 +5,15 @@
 			<app-banner></app-banner>
 		</div>
 		<!-- Coluna alinhada a ESQUERDA -->
-		<div class="col-sm-6 d-flex justify-content-start">
-			<!-- <app-login></app-login> -->
-			<app-sign-up></app-sign-up>
+		<div *ngIf="signUpPage; else formLogin">
+			<div class="col-sm-6 d-flex justify-content-start">
+				<app-sign-up (eventSignUp)="changeForm($event)"></app-sign-up>
+			</div>
 		</div>
+		<ng-template #formLogin>
+			<div class="col-sm-6 d-flex justify-content-start">
+				<app-login (eventLogin)="changeForm($event)"></app-login>
+			</div>
+		</ng-template>
 	</div>
 </div>

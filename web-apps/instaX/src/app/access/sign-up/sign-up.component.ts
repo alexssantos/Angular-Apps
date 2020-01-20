@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.scss']
+	selector: 'app-sign-up',
+	templateUrl: './sign-up.component.html',
+	styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+	@Output() public eventSignUp: EventEmitter<string> = new EventEmitter();
 
-  ngOnInit() {
-  }
+	constructor() { }
+
+	ngOnInit() {
+	}
+
+	public showLoginPainel(): void {
+		this.eventSignUp.emit('login');
+	}
 
 }

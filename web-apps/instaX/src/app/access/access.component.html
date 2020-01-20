@@ -2,17 +2,19 @@
 	<div class="row">
 		<!-- Coluna alinhada a DIREITA -->
 		<div class="col-sm-6 d-flex justify-content-end">
-			<app-banner></app-banner>
+			<app-banner [@animation-banner]="stateBanner"></app-banner>
 		</div>
 		<!-- Coluna alinhada a ESQUERDA -->
 		<div *ngIf="signUpPage; else formLogin">
 			<div class="col-sm-6 d-flex justify-content-start">
-				<app-sign-up (eventSignUp)="changeForm($event)"></app-sign-up>
+				<app-sign-up (eventSignUp)="changeForm($event)" [@animation-painel]="statePainel">
+				</app-sign-up>
 			</div>
 		</div>
 		<ng-template #formLogin>
 			<div class="col-sm-6 d-flex justify-content-start">
-				<app-login (eventLogin)="changeForm($event)"></app-login>
+				<app-login (eventLogin)="changeForm($event)" [@animation-painel]="statePainel">
+				</app-login>
 			</div>
 		</ng-template>
 	</div>

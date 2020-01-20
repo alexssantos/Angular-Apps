@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { MyAuthService } from '../services/my-auth.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+	selector: 'app-home',
+	templateUrl: './home.component.html',
+	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+	constructor(
+		private myAuthService: MyAuthService
+	) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
+
+	public logout(): void {
+		this.myAuthService.logout();
+	}
 
 }

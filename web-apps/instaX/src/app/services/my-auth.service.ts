@@ -67,4 +67,13 @@ export class MyAuthService {
 		let token: string = localStorage.getItem("idToken");
 		return (token) ? true : false;
 	}
+
+	public logout(): void {
+		localStorage.removeItem('idToken');
+		this.idToken = null;
+		firebase.auth().signOut()
+			.then(() => {
+				this.router.navigate(['/']);
+			})
+	}
 }

@@ -1,21 +1,30 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
-	selector: 'app-sign-up',
-	templateUrl: './sign-up.component.html',
-	styleUrls: ['./sign-up.component.scss']
+	selector: "app-sign-up",
+	templateUrl: "./sign-up.component.html",
+	styleUrls: ["./sign-up.component.scss"]
 })
 export class SignUpComponent implements OnInit {
-
 	@Output() public eventSignUp: EventEmitter<string> = new EventEmitter();
 
-	constructor() { }
+	public formSignup: FormGroup = new FormGroup({
+		email: new FormControl(),
+		full_name: new FormControl(),
+		user_name: new FormControl(),
+		password: new FormControl()
+	});
 
-	ngOnInit() {
-	}
+	constructor() {}
+
+	ngOnInit() {}
 
 	public showLoginPainel(): void {
-		this.eventSignUp.emit('login');
+		this.eventSignUp.emit("login");
 	}
 
+	public submitNewUser(): void {
+		console.log(this.formSignup);
+	}
 }

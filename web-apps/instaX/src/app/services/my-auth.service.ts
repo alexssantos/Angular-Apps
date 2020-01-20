@@ -33,4 +33,19 @@ export class MyAuthService {
 				console.log(error);
 			});
 	}
+
+	public Login(email: string, password: string): boolean {
+		firebase
+			.auth()
+			.signInWithEmailAndPassword(email, password)
+			.then((user: any) => {
+				console.log("LOGIN DONE", user);
+				if (user) return true;
+			})
+			.catch((error: Error) => {
+				console.log("LOGIN ERROR", error);
+				return false;
+			});
+		return false;
+	}
 }

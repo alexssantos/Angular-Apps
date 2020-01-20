@@ -12,6 +12,8 @@ import { BannerComponent } from "./access/banner/banner.component";
 import { LoginComponent } from "./access/login/login.component";
 import { SignUpComponent } from "./access/sign-up/sign-up.component";
 import { MyAuthService } from "./services/my-auth.service";
+import { HomeComponent } from './home/home.component';
+import { PostsComponent } from './home/posts/posts.component';
 
 @NgModule({
 	declarations: [
@@ -19,7 +21,9 @@ import { MyAuthService } from "./services/my-auth.service";
 		AccessComponent,
 		BannerComponent,
 		LoginComponent,
-		SignUpComponent
+		SignUpComponent,
+		HomeComponent,
+		PostsComponent
 	],
 	imports: [
 		BrowserModule,

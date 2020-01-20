@@ -1,4 +1,4 @@
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MyAuthService } from './my-auth.service';
 
@@ -6,7 +6,8 @@ import { MyAuthService } from './my-auth.service';
 export class AuthGuardService implements CanActivate {
 
 	constructor(
-		private myAuthService: MyAuthService
+		private myAuthService: MyAuthService,
+		private router: Router
 	) { }
 
 	canActivate(
@@ -14,7 +15,9 @@ export class AuthGuardService implements CanActivate {
 		state: RouterStateSnapshot
 	): boolean //| UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> 
 	{
-		return this.myAuthService.isAuthenticated();
+		let isAuth: boolean = this.myAuthService.isAuthenticated();
+		if (!isAuth) this.router.navigate(['/']);
+		return isAuth;
 	}
 
 }

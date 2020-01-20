@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { MyAuthService } from '../services/my-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-access',
@@ -32,9 +34,15 @@ export class AccessComponent implements OnInit {
 	public statePainel: string = 'criado';
 	public signUpPage: boolean = false;
 
-	constructor() { }
+	constructor(
+		private myAuthService: MyAuthService,
+		private router: Router
+	) { }
 
 	ngOnInit() {
+		if (this.myAuthService.isAuthenticated()) {
+			this.router.navigate(['/home']);
+		}
 	}
 
 	public changeForm(event: string): void {

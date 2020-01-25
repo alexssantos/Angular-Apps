@@ -15,6 +15,7 @@ import { MyAuthService } from "./services/my-auth.service";
 import { HomeComponent } from './home/home.component';
 import { PostsComponent } from './home/posts/posts.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { AddPostComponent } from './home/add-post/add-post.component';
 
 @NgModule({
 	declarations: [
@@ -24,7 +25,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 		LoginComponent,
 		SignUpComponent,
 		HomeComponent,
-		PostsComponent
+		PostsComponent,
+		AddPostComponent
 	],
 	imports: [
 		BrowserModule,

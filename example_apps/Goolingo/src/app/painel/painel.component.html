@@ -1,0 +1,43 @@
+<div class="container">
+	<div class="jumbotron">
+		<!-- progresso + Tentativas -->
+		<div class="row">
+			
+			<!-- Barra de progresso -->
+			<div class="col-sm-6">
+				<app-progresso [progresso]="progresso"></app-progresso>
+			</div>
+
+			<!-- Corações / tentativas -->
+			<div class="col-sm-6">
+				<div class="d-flex justify-content-end">
+					<app-tentativas [tentativas]="tentativas"></app-tentativas>
+				</div>
+			</div>
+			
+		</div>
+
+		<!-- Frase em Ingles -->
+		<div class="row">
+			<div class="col">
+				<h6>{{ instrucao }}</h6>
+				<p>{{ rodadaFrase.fraseEng }}</p>
+				<div class="form-group">
+					<textarea class="form-control" rows="3" #inputAnswer [value]="resposta">
+					</textarea>
+				</div>
+			</div>
+		</div>
+
+		<!-- area de resposta -->
+		<div class="row">
+			<div class="col">
+				<div class="d-flex justify-content-end">
+					<button type="submit" class="btn btn-primary btn-lg" (click)="checkAnswer(inputAnswer.value)">
+						Enviar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

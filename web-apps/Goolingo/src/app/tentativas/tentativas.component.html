@@ -1,0 +1,5 @@
+<!-- <img [src]="heartEmpty" />
+<img [src]="heartEmpty" />
+<img [src]="heartEmpty" /> -->
+
+<img *ngFor="let coracao of arrayCoracoes" [src]="coracao.exibeCoracao()"/>

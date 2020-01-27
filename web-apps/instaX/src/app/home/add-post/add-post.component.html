@@ -9,7 +9,7 @@
 >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form>
+			<form [formGroup]="formPost" (ngSubmit)="createPost()">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalLabel">
 						New Post - What you're thinking... ?
@@ -24,11 +24,29 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input
-						type="text"
-						placeholder="What you're thinking..."
-						class="form-control"
-					/>
+					<!-- INPUT IMAGE -->
+					<div class="custom-file my-3">
+						<input
+							type="file"
+							accept="image/*"
+							class="custom-file-input"
+							id="customFileInput"
+							(change)="changeInput($event)"
+						/>
+						<label class="custom-file-label" for="customFileInput"
+							>{{ photo ? photo.name : "Escolha uma foto" }}
+						</label>
+					</div>
+
+					<!-- TEXT MESSAGE -->
+					<div>
+						<input
+							type="text"
+							placeholder="What are you thinking..."
+							class="form-control"
+							formControlName="title"
+						/>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button
@@ -38,7 +56,7 @@
 					>
 						Cancel
 					</button>
-					<button type="button" class="btn btn-primary">
+					<button type="submit" class="btn btn-primary">
 						Post
 					</button>
 				</div>

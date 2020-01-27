@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { PostsComponent } from './home/posts/posts.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AddPostComponent } from './home/add-post/add-post.component';
+import { Db } from './services/db.service';
 
 @NgModule({
 	declarations: [
@@ -36,7 +37,8 @@ import { AddPostComponent } from './home/add-post/add-post.component';
 	],
 	providers: [
 		MyAuthService,
-		AuthGuardService
+		AuthGuardService,
+		Db
 	],
 	bootstrap: [AppComponent]
 })

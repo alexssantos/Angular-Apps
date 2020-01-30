@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
+import { Progress } from 'src/app/models/progress.model';
 
 @Component({
 	selector: 'app-add-post',
@@ -17,7 +18,11 @@ export class AddPostComponent implements OnInit {
 	private userEmail: string;
 	private photo: any;
 
-	constructor(private db: Db) { }
+	constructor(
+		private db: Db,
+		private progress: Progress
+	) 
+	{ }
 
 	ngOnInit() {
 		this.startTrackingUserState()
@@ -27,8 +32,12 @@ export class AddPostComponent implements OnInit {
 		console.log(this.formPost.value.title);
 		this.db.craetePost({
 			email: this.userEmail,
-			title: this.formPost.value.title
+			title: this.formPost.value.title,
+			image: this.photo[0]
 		});
+
+		console.log(this.progress.state);
+		console.log(this.progress.status);
 	}
 
 	private startTrackingUserState(): void {
@@ -37,7 +46,7 @@ export class AddPostComponent implements OnInit {
 		});
 	}
 
-	private changeInput(event: Event) {
+	private getImageFile(event: Event) {
 		let files: any = (<HTMLInputElement>event.target).files;
 		let file = files && files.length > 0 ? files[0] : null;
 		this.photo = file;

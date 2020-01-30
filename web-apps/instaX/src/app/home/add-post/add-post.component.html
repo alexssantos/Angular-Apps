@@ -31,7 +31,7 @@
 							accept="image/*"
 							class="custom-file-input"
 							id="customFileInput"
-							(change)="changeInput($event)"
+							(change)="getImageFile($event)"
 						/>
 						<label class="custom-file-label" for="customFileInput"
 							>{{ photo ? photo.name : "Escolha uma foto" }}

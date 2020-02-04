@@ -1,8 +1,7 @@
-import { User } from "../models/user.model";
-import * as firebase from "firebase";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { DATA_DOCS } from "./db.service"
+import { User } from '../models/user.model';
+import * as firebase from 'firebase';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class MyAuthService {
@@ -17,14 +16,14 @@ export class MyAuthService {
 			.auth()
 			.createUserWithEmailAndPassword(user.Email, user.Password)
 			.then((res: any) => {
-				//remover a senha para nao armazenar no banco
+				// remover a senha para nao armazenar no banco
 				delete user.Password;
 
-				//salvando usuario no banco no path email na base64
+				// salvando usuario no banco no path email na base64
 				let base64Email = btoa(user.Email);
 				firebase
 					.database()
-					.ref(`${DATA_DOCS.USER_DETAIL}/${base64Email}`)
+					.ref(`user_detail/${base64Email}`)
 					.set(user)
 					.then(res2 => {
 						console.log("USUARIO SALVO", res2);

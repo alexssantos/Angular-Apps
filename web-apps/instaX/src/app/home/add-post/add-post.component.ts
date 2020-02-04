@@ -17,15 +17,15 @@ export class AddPostComponent implements OnInit {
 
 	private userEmail: string;
 	private photo: any;
+	private progress: Progress;
+
 
 	constructor(
-		private db: Db,
-		private progress: Progress
-	) 
-	{ }
+		private db: Db
+	) { }
 
 	ngOnInit() {
-		this.startTrackingUserState()
+		this.startTrackingUserState();
 	}
 
 	public createPost(): void {
@@ -47,7 +47,7 @@ export class AddPostComponent implements OnInit {
 	}
 
 	private getImageFile(event: Event) {
-		let files: any = (<HTMLInputElement>event.target).files;
+		let files: any = (event.target as HTMLInputElement).files;
 		let file = files && files.length > 0 ? files[0] : null;
 		this.photo = file;
 	}

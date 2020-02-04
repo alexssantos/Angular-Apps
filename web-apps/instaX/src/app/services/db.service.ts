@@ -1,21 +1,29 @@
-import * as firebase from 'firebase'
+import * as firebase from 'firebase';
 import { Progress } from '../models/progress.model';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class Db {
+	private DATA_DOCS = {
+		POSTS: 'posts',
+		USER_DETAIL: 'user_detail'
+	};
 
-	constructor(
-		private progress: Progress
-	){ }
+	private DATA_STORAGE = {
+		IMAGES: 'images'
+	};
 
-	private dbDocs = DATA_DOCS;
-	private dbStorage = DATA_STORAGE;
+	private progress: Progress = new Progress();
+
+	constructor() { }
+
 
 	public craetePost(post: any): void {
 
 		console.log(post);
-		let ImageName = Date.now();
+		const ImageName = Date.now();
 
-		firebase.storage().ref().child(`${this.dbStorage.IMAGES}/${ImageName}`)
+		firebase.storage().ref().child(`${this.DATA_STORAGE.IMAGES}/${ImageName}`)
 			// Create blob
 			.put(post.image)
 			// Tracking state.
@@ -29,27 +37,13 @@ export class Db {
 				(error) => {
 					this.progress.status = 'erro';
 				},
-				//complete
+				// complete
 				() => {
 					this.progress.status = 'concluido';
-				})
-				
+				});
 
-
-		// firebase.database().ref(`${this.docs.POSTS}/${btoa(post.email)}`).push({
-		// 	title: post.title
-		// })
-
-
+		firebase.database().ref(`${this.DATA_DOCS.POSTS}/${btoa(post.email)}`).push({
+			title: post.title
+		});
 	}
-}
-
-export enum DATA_DOCS {
-	POSTS = "posts",
-	USER_DETAIL = "user_detail"
-}
-
-export enum DATA_STORAGE {
-	IMAGES = "images",
-	
 }

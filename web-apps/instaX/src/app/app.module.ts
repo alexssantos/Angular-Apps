@@ -19,6 +19,7 @@ import { AddPostComponent } from './home/add-post/add-post.component';
 import { MyAuthService } from './services/my-auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { Db } from './services/db.service';
+import { Progress } from './services/progress.service';
 
 @NgModule({
 	declarations: [
@@ -40,7 +41,8 @@ import { Db } from './services/db.service';
 	providers: [
 		MyAuthService,
 		AuthGuardService,
-		Db
+		Db,
+		Progress
 	],
 	bootstrap: [AppComponent]
 })

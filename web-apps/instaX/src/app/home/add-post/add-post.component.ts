@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
-import { Progress } from 'src/app/models/progress.model';
+import { Progress } from 'src/app/services/progress.service';
+import { Subject, interval } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-add-post',
@@ -15,13 +17,13 @@ export class AddPostComponent implements OnInit {
 		title: new FormControl()
 	});
 
+	private statusUpload: string;
 	private userEmail: string;
 	private photo: any;
-	private progress: Progress;
-
 
 	constructor(
-		private db: Db
+		private db: Db,
+		private progress: Progress
 	) { }
 
 	ngOnInit() {
@@ -29,15 +31,35 @@ export class AddPostComponent implements OnInit {
 	}
 
 	public createPost(): void {
-		console.log(this.formPost.value.title);
+		console.log('Form Post', this.formPost);
+
 		this.db.craetePost({
 			email: this.userEmail,
 			title: this.formPost.value.title,
-			image: this.photo[0]
+			image: this.photo
 		});
 
-		console.log(this.progress.state);
-		console.log(this.progress.status);
+		this.trackProgressUpload();
+	}
+
+	private trackProgressUpload(): void {
+
+		let uploadLapMs = 1500;
+		let uploadTrackingObsv = interval(uploadLapMs);
+
+		var uploadingInProgress = true;
+		uploadTrackingObsv
+			// takeWhile: rxjs 6.4+ //takeUntil causing inter subscribe leaks
+			.pipe(takeWhile(() => uploadingInProgress))
+			.subscribe(() => {
+				console.log(this.progress.state);
+				console.log(this.progress.status);
+
+				if (this.progress.status == 'concluido') {
+					console.log('STOPED UPLOAD TRAKING');
+					uploadingInProgress = false;
+				}
+			})
 	}
 
 	private startTrackingUserState(): void {
@@ -50,6 +72,7 @@ export class AddPostComponent implements OnInit {
 		let files: any = (event.target as HTMLInputElement).files;
 		let file = files && files.length > 0 ? files[0] : null;
 		this.photo = file;
+		console.log('FOTO: ', this.photo);
 	}
 
 }

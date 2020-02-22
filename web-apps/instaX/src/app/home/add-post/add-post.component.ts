@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
 import { Progress } from 'src/app/services/progress.service';
 import { Subject, interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
+import * as $ from 'jquery'
 
 @Component({
 	selector: 'app-add-post',
@@ -12,6 +13,8 @@ import { takeWhile } from 'rxjs/operators';
 	styleUrls: ['./add-post.component.scss']
 })
 export class AddPostComponent implements OnInit {
+
+	@ViewChild('closeModal', null) closeModalBtn: ElementRef;
 
 	public formPost: FormGroup = new FormGroup({
 		title: new FormControl()
@@ -44,6 +47,15 @@ export class AddPostComponent implements OnInit {
 		this.trackProgressUpload();
 	}
 
+	private closeModal() {
+		setTimeout(() => {
+			this.closeModalBtn.nativeElement.click();
+
+			waits(1000);
+			this.resetModalAddPost();
+		}, 1500);
+	}
+
 	private trackProgressUpload(): void {
 
 		let uploadLapMs = 1000; //1s
@@ -52,8 +64,8 @@ export class AddPostComponent implements OnInit {
 		fakeIntervalProgressBar
 			.pipe(takeWhile(() => this.uploadPercent <= 100))
 			.subscribe(() => {
+				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent + " %");
 				this.uploadPercent += 5;
-				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent);
 			});
 
 		var uploadingInProgress = true;
@@ -64,16 +76,24 @@ export class AddPostComponent implements OnInit {
 				console.log(this.progress.state);
 				console.log(this.progress.status);
 				this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
-				//this.uploadPercent = Math.round((this.progress.state.bytesTransferred / this.progress.state.totalBytes) * 100);
+
 
 				if (this.progress.status == 'concluido') {
 					console.log('STOPED UPLOAD TRAKING');
 					console.log(this.progress.state);
 
 					this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
+					this.closeModal();
+
 					uploadingInProgress = false;
 				}
 			})
+	}
+
+	private resetModalAddPost(): void {
+		this.photo = null;
+		this.statusUpload = UPLOAD_STATUS.PENDENTE;
+		this.uploadPercent = 0;
 	}
 
 	private startTrackingUserState(): void {

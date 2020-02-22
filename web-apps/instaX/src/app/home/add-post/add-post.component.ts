@@ -48,6 +48,13 @@ export class AddPostComponent implements OnInit {
 
 		let uploadLapMs = 1000; //1s
 		let uploadTrackingObsv = interval(uploadLapMs);
+		let fakeIntervalProgressBar = interval(200);
+		fakeIntervalProgressBar
+			.pipe(takeWhile(() => this.uploadPercent <= 100))
+			.subscribe(() => {
+				this.uploadPercent += 5;
+				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent);
+			});
 
 		var uploadingInProgress = true;
 		uploadTrackingObsv
@@ -57,7 +64,7 @@ export class AddPostComponent implements OnInit {
 				console.log(this.progress.state);
 				console.log(this.progress.status);
 				this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
-				this.uploadPercent = Math.round((this.progress.state.bytesTransferred / this.progress.state.totalBytes) * 100);
+				//this.uploadPercent = Math.round((this.progress.state.bytesTransferred / this.progress.state.totalBytes) * 100);
 
 				if (this.progress.status == 'concluido') {
 					console.log('STOPED UPLOAD TRAKING');

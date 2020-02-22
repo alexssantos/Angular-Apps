@@ -1,5 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="addPostModal" #addPostModal tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+	aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<form [formGroup]="formPost" (ngSubmit)="createPost()">
@@ -33,6 +34,11 @@
 					<!-- UPLOAD EM ANDAMENTO -->
 					<div *ngIf="statusUpload === 'andamento'">
 						Criando post: {{uploadPercent}} %
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+								role="progressbar" [style.width]="uploadPercent + '%'" aria-valuenow="uploadPercent"
+								aria-valuemin="0" aria-valuemax="100"></div>
+						</div>
 					</div>
 
 					<!-- UPLOAD EM ANDAMENTO -->

@@ -17,9 +17,10 @@ export class AddPostComponent implements OnInit {
 		title: new FormControl()
 	});
 
-	private statusUpload: string;
+	private statusUpload: UPLOAD_STATUS;
 	private userEmail: string;
 	private photo: any;
+	private uploadPercent: number = 0;
 
 	constructor(
 		private db: Db,
@@ -28,11 +29,12 @@ export class AddPostComponent implements OnInit {
 
 	ngOnInit() {
 		this.startTrackingUserState();
+		this.statusUpload = UPLOAD_STATUS.PENDENTE;
 	}
 
 	public createPost(): void {
-		console.log('Form Post', this.formPost);
-
+		console.log('status upload', this.statusUpload)
+		this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
 		this.db.craetePost({
 			email: this.userEmail,
 			title: this.formPost.value.title,
@@ -44,7 +46,7 @@ export class AddPostComponent implements OnInit {
 
 	private trackProgressUpload(): void {
 
-		let uploadLapMs = 1500;
+		let uploadLapMs = 1000; //1s
 		let uploadTrackingObsv = interval(uploadLapMs);
 
 		var uploadingInProgress = true;
@@ -54,9 +56,14 @@ export class AddPostComponent implements OnInit {
 			.subscribe(() => {
 				console.log(this.progress.state);
 				console.log(this.progress.status);
+				this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
+				this.uploadPercent = Math.round((this.progress.state.bytesTransferred / this.progress.state.totalBytes) * 100);
 
 				if (this.progress.status == 'concluido') {
 					console.log('STOPED UPLOAD TRAKING');
+					console.log(this.progress.state);
+
+					this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
 					uploadingInProgress = false;
 				}
 			})
@@ -75,4 +82,10 @@ export class AddPostComponent implements OnInit {
 		console.log('FOTO: ', this.photo);
 	}
 
+}
+
+export enum UPLOAD_STATUS {
+	CONCLUIDO = 'concluido',
+	PENDENTE = 'pendente',
+	ANDAMENTO = 'andamento'
 }

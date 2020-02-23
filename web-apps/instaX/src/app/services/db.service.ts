@@ -1,6 +1,8 @@
 import * as firebase from 'firebase';
 import { Progress } from './progress.service';
 import { Injectable } from '@angular/core';
+import { UPLOAD_STATUS } from 'src/app/utils/enums/enums';
+
 
 @Injectable()
 export class Db {
@@ -15,38 +17,50 @@ export class Db {
 
 	constructor(
 		private progress: Progress
-	) { }
-
+	) {	}
 
 	public craetePost(post: any): void {
 
-		console.log('craetePost - post:', post);
-		const ImageName = Date.now();
+		console.log('createPost - post:', post);
+		const post_key = btoa(post.email);
+		const image_url = Date.now().toString() + post_key;
 
-		firebase.storage().ref().child(`${this.DATA_STORAGE.IMAGES}/${ImageName}`)
+		//post
+		firebase.database()
+			.ref(`${this.DATA_DOCS.POSTS}/${post_key}`)
+			.push({
+				title: post.title,
+				image_url: image_url
+			})
+			.then((ref) => {
+				console.log("Document successfully written!", ref);
+				this.uploadPhoto(post.image, image_url);
+			})
+			.catch((error) => {
+				console.error("Error writing document: ", error);
+			});
+	}
+
+	private uploadPhoto(imageBlob: File, imageUrl: string): void {
+
+		firebase.storage().ref().child(`${this.DATA_STORAGE.IMAGES}/${imageUrl}`)
 			// Create blob
-			.put(post.image)
+			.put(imageBlob)
 			// Tracking state.
 			.on(firebase.storage.TaskEvent.STATE_CHANGED,
 				(snapshot: any) => {
 					this.progress.state = snapshot;
-					this.progress.status = 'em andamento';
+					this.progress.status = UPLOAD_STATUS.ANDAMENTO;
 					console.log(snapshot);
-					//console.log("SUCESSO NA REQUISIÇÂO")
-
 				},
 				(error) => {
-					this.progress.status = 'erro';
-					console.log("ERRO NA REQUISIÇÂO")
+					console.log("Error uploading photo:", error);
+					this.progress.status = UPLOAD_STATUS.ERRO;;
 				},
 				// complete
 				() => {
-					this.progress.status = 'concluido';
-					console.log("CONCLUIDO A REQUISIÇÂO")
+					console.log("Photo successfully uploaded!");
+					this.progress.status = UPLOAD_STATUS.CONCLUIDO;
 				});
-
-		firebase.database().ref(`${this.DATA_DOCS.POSTS}/${btoa(post.email)}`).push({
-			title: post.title
-		});
 	}
 }

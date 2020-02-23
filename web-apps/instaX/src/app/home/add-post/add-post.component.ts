@@ -6,6 +6,7 @@ import { Progress } from 'src/app/services/progress.service';
 import { Subject, interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import * as $ from 'jquery'
+import { UPLOAD_STATUS } from 'src/app/utils/enums/enums';
 
 @Component({
 	selector: 'app-add-post',
@@ -47,53 +48,66 @@ export class AddPostComponent implements OnInit {
 		this.trackProgressUpload();
 	}
 
-	private closeModal() {
-		setTimeout(() => {
-			this.closeModalBtn.nativeElement.click();
-
-			waits(1000);
-			this.resetModalAddPost();
-		}, 1500);
-	}
-
 	private trackProgressUpload(): void {
+
+		let fakeIntervalProgressBar = interval(500);
+		fakeIntervalProgressBar
+			.pipe(takeWhile(() =>
+				(this.uploadPercent < 100)
+				&&
+				(this.statusUpload === UPLOAD_STATUS.ANDAMENTO)))
+			.subscribe(() => {
+				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent + " %");
+				this.uploadPercent = (this.uploadPercent >= 100) ? 100 : this.uploadPercent + 5;
+			});
 
 		let uploadLapMs = 1000; //1s
 		let uploadTrackingObsv = interval(uploadLapMs);
-		let fakeIntervalProgressBar = interval(200);
-		fakeIntervalProgressBar
-			.pipe(takeWhile(() => this.uploadPercent <= 100))
-			.subscribe(() => {
-				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent + " %");
-				this.uploadPercent += 5;
-			});
-
 		var uploadingInProgress = true;
 		uploadTrackingObsv
 			// takeWhile: rxjs 6.4+ //takeUntil causing inter subscribe leaks
 			.pipe(takeWhile(() => uploadingInProgress))
-			.subscribe(() => {
-				console.log(this.progress.state);
-				console.log(this.progress.status);
-				this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
+			.subscribe(
+				(value) => {
+					console.log(this.progress);
+					this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
 
+					if ((this.progress.status == UPLOAD_STATUS.CONCLUIDO)
+						|| (this.progress.status == UPLOAD_STATUS.ERRO)) {
+						console.log('STOPED UPLOAD TRAKING!');
 
-				if (this.progress.status == 'concluido') {
-					console.log('STOPED UPLOAD TRAKING');
-					console.log(this.progress.state);
+						this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
+						this.closeModal();
 
-					this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
-					this.closeModal();
+						uploadingInProgress = false;
+					}
+				},
+				((error) => {
+					console.error('something is wrong:', error);
+				}),
+				() => {
+					console.log('Finnaly - stop tacking upload');
+				});
+	}
 
-					uploadingInProgress = false;
-				}
-			})
+	private closeModal() {
+		setTimeout(() => {
+			this.closeModalNow();
+			this.resetModalAddPost();
+		}, 2000);
+	}
+
+	private closeModalNow(): void {
+		this.closeModalBtn.nativeElement.click();
+		this.resetModalAddPost();
 	}
 
 	private resetModalAddPost(): void {
+		console.log('reset moral values')
 		this.photo = null;
 		this.statusUpload = UPLOAD_STATUS.PENDENTE;
 		this.uploadPercent = 0;
+		this.formPost.reset();
 	}
 
 	private startTrackingUserState(): void {
@@ -109,10 +123,4 @@ export class AddPostComponent implements OnInit {
 		console.log('FOTO: ', this.photo);
 	}
 
-}
-
-export enum UPLOAD_STATUS {
-	CONCLUIDO = 'concluido',
-	PENDENTE = 'pendente',
-	ANDAMENTO = 'andamento'
 }

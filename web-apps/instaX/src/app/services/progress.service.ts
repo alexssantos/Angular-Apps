@@ -1,4 +1,4 @@
 export class Progress {
-    public state: string;
+    public state: any;
     public status: string;
 }

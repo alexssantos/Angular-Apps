@@ -4,8 +4,7 @@ import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
 import { Progress } from 'src/app/services/progress.service';
 import { Subject, interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
-import * as $ from 'jquery'
+import { takeWhile, delay } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-add-post',
@@ -20,6 +19,9 @@ export class AddPostComponent implements OnInit {
 		title: new FormControl()
 	});
 
+	private uploadLapMs = 1000;
+	//cada 500ms = +5%
+	private uploadSpeed: number = 500;
 	private statusUpload: UPLOAD_STATUS;
 	private userEmail: string;
 	private photo: any;
@@ -38,11 +40,14 @@ export class AddPostComponent implements OnInit {
 	public createPost(): void {
 		console.log('status upload', this.statusUpload)
 		this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
-		this.db.craetePost({
-			email: this.userEmail,
-			title: this.formPost.value.title,
-			image: this.photo
-		});
+		// this.db.craetePost({
+		// 	email: this.userEmail,
+		// 	title: this.formPost.value.title,
+		// 	image: this.photo
+		// });
+
+		//fake upload
+		this.fakeUpload();
 
 		this.trackProgressUpload();
 	}
@@ -51,34 +56,73 @@ export class AddPostComponent implements OnInit {
 		setTimeout(() => {
 			this.closeModalBtn.nativeElement.click();
 
-			waits(1000);
+			delay(1000);
 			this.resetModalAddPost();
 		}, 1500);
 	}
 
+	fakeUpload() {
+		this.progress.state = {
+			uploadedBytes: 0,
+			totalBytes: this.photo.size
+		};
+
+		let fakeUploadInterval = interval(1000);
+		fakeUploadInterval
+			.pipe(takeWhile(() => this.progress.state.uploadedBytes < this.photo.size))
+			.subscribe(() => {
+				let alreadyUploaded = this.progress.state.uploadedBytes;
+				let plus = this.get5To10Perc(alreadyUploaded)
+				let uploaded = plus + alreadyUploaded;
+				console.log('old: ', alreadyUploaded)
+				console.log('plus: ', plus)
+				console.log('UPLOADED (FAKE) in +1s: ', uploaded)
+
+
+				this.progress.state.uploadedBytes = uploaded;
+				this.progress.status = UPLOAD_STATUS.ANDAMENTO;
+			});
+	}
+
+	private get5To10Perc(value: number): number {
+		console.log('value', value)
+		let min = (this.photo.size / 20);
+		if (!value || value == 0) {
+			return min;
+		}
+		else {
+			let max = min * 2;
+			var result = Math.round(Math.random() * (max - min) + min);
+			console.log('get5To10Perc :', result);
+		}
+
+		return result;
+	}
+
 	private trackProgressUpload(): void {
 
-		let uploadLapMs = 1000; //1s
-		let uploadTrackingObsv = interval(uploadLapMs);
-		let fakeIntervalProgressBar = interval(200);
-		fakeIntervalProgressBar
-			.pipe(takeWhile(() => this.uploadPercent <= 100))
-			.subscribe(() => {
-				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent + " %");
-				this.uploadPercent += 5;
-			});
-
 		var uploadingInProgress = true;
+		let i = 0;
+		let timesUpdateSpeedUpload = 3
+		let totalLastUploaded = 0
+
+		let uploadTrackingObsv = interval(this.uploadLapMs);
 		uploadTrackingObsv
 			// takeWhile: rxjs 6.4+ //takeUntil causing inter subscribe leaks
 			.pipe(takeWhile(() => uploadingInProgress))
 			.subscribe(() => {
-				console.log(this.progress.state);
-				console.log(this.progress.status);
 				this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
 
+				let uploaded = this.progress.state.uploadedBytes;
+				let diffUpload = uploaded - totalLastUploaded;
+				totalLastUploaded = uploaded;
 
-				if (this.progress.status == 'concluido') {
+				if (i < timesUpdateSpeedUpload) {
+					this.calculateVelocidadeUpload(this.uploadLapMs, diffUpload);
+					i++;
+				}
+
+				if (this.progress.status == UPLOAD_STATUS.CONCLUIDO) {
 					console.log('STOPED UPLOAD TRAKING');
 					console.log(this.progress.state);
 
@@ -87,7 +131,50 @@ export class AddPostComponent implements OnInit {
 
 					uploadingInProgress = false;
 				}
-			})
+			});
+
+
+		// === atualiza barra de progresso com base em calc de vel media
+		let lap = 0;
+		let lastTime = new Date().getMilliseconds();
+		let uploadPercentBarSubs = interval(this.uploadSpeed);
+		uploadPercentBarSubs
+			.pipe(takeWhile(() => this.uploadPercent < 100))
+			.subscribe(() => {
+				let now = new Date().getMilliseconds();
+				let lapTime = Math.abs(now - lastTime);
+				lastTime = now;
+
+				let curPercUploaded = Math.round((this.progress.state.uploadedBytes / this.progress.state.totalBytes) * 100);
+				let diffProgressPerc = Math.abs(curPercUploaded - this.uploadPercent);
+				this.uploadPercent = (curPercUploaded >= 100) ? 100 : curPercUploaded;
+
+				console.log(`
+	============= BAR PROGRESS - CALC UPLOAD =======================
+		speed: ${this.uploadSpeed} bytes/ms
+		lap: ${lap}
+		lapTime: +${lapTime} ms
+		curPercUploaded: ${diffProgressPerc} %
+
+		----
+		totalBytesUploaded: ${this.progress.state.uploadedBytes}
+		toalPercUploaded: ${curPercUploaded}
+	================================================================
+					`);
+				lap++;
+			});
+	}
+
+	calculateVelocidadeUpload(lapTime, bytesUploaded) {
+		let curMedia = bytesUploaded / lapTime;
+
+		console.log('laptime: ', lapTime)
+		console.log('bytesUploaded', bytesUploaded)
+		console.log('curMedia', curMedia)
+		console.log('old speed', this.uploadSpeed)
+
+		this.uploadSpeed = ((this.uploadSpeed + curMedia) / 2)
+		console.log('UPDATED SPEED TO: ', this.uploadSpeed);
 	}
 
 	private resetModalAddPost(): void {

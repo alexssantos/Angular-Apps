@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
 import { Progress } from 'src/app/services/progress.service';
@@ -18,12 +18,14 @@ export class AddPostComponent implements OnInit {
 	@ViewChild('closeModal', null) closeModalBtn: ElementRef;
 
 	public formPost: FormGroup = new FormGroup({
-		title: new FormControl()
+		title: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(120)]),
+		photo: new FormControl(null, Validators.required)
 	});
 
 	private statusUpload: UPLOAD_STATUS;
 	private userEmail: string;
 	private photo: any;
+	private photos: any[] = [];
 	private uploadPercent: number = 0;
 
 	constructor(
@@ -34,6 +36,10 @@ export class AddPostComponent implements OnInit {
 	ngOnInit() {
 		this.startTrackingUserState();
 		this.statusUpload = UPLOAD_STATUS.PENDENTE;
+	}
+
+	teste() {
+		console.log("FORM POST: ", this.formPost);
 	}
 
 	public createPost(): void {
@@ -105,6 +111,7 @@ export class AddPostComponent implements OnInit {
 	private resetModalAddPost(): void {
 		console.log('reset moral values')
 		this.photo = null;
+		this.photos = [];
 		this.statusUpload = UPLOAD_STATUS.PENDENTE;
 		this.uploadPercent = 0;
 		this.formPost.reset();
@@ -116,11 +123,40 @@ export class AddPostComponent implements OnInit {
 		});
 	}
 
-	private getImageFile(event: Event) {
+	private getImageFile(event: Event, formImageName: string) {
 		let files: any = (event.target as HTMLInputElement).files;
-		let file = files && files.length > 0 ? files[0] : null;
+		let file: File = (files && files.length > 0) ? files[0] : null;
 		this.photo = file;
 		console.log('FOTO: ', this.photo);
+
+		//this.formPost.get(formImageName).setValue(this.photo);
+
+		this.formPost.patchValue({ [formImageName]: file });
+
+		this.preview(files);
+	}
+
+	public imagePath;
+	imgURL: any;
+
+
+	preview(files) {
+		if (files.length === 0) return;
+
+		var mimeType = files[0].type;
+		if (mimeType.match(/image\/*/) == null) {
+			console.error("Only images are supported.");
+			return;
+		}
+
+		var reader = new FileReader();
+		this.imagePath = files;
+		reader.readAsDataURL(files[0]);
+		reader.onload = (_event) => {
+			this.photos.push({
+				imgURL: reader.result
+			});
+		}
 	}
 
 }

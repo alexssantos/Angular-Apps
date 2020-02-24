@@ -17,7 +17,7 @@ export class Db {
 
 	constructor(
 		private progress: Progress
-	) {	}
+	) { }
 
 	public craetePost(post: any): void {
 
@@ -34,7 +34,13 @@ export class Db {
 			})
 			.then((ref) => {
 				console.log("Document successfully written!", ref);
-				this.uploadPhoto(post.image, image_url);
+
+				if (post.image) {
+					this.uploadPhoto(post.image, image_url);
+				}
+				else {
+					this.progress.status = UPLOAD_STATUS.CONCLUIDO;
+				}
 			})
 			.catch((error) => {
 				console.error("Error writing document: ", error);

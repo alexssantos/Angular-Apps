@@ -4,21 +4,31 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<form [formGroup]="formPost" (ngSubmit)="createPost()">
-				<div class="modal-header">
+				<div class="modal-header" (click)="teste()">
 					<h5 class="modal-title" id="modalLabel">
-						New Post <br> What're you thinking... ?
+						New Post
 					</h5>
 					<button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
+					<p> What're you thinking... ?</p>
 
+					<!-- Show Many Images -->
+					<!-- <div class="row">
+						<div *ngIf="photos.length > 0">
+							<div class="d-flex justify-content-start" *ngFor="let photo of photos">
+								<img [src]="photo.imgURL" class="rounded img-thumbnail m-3" alt="..." width="200"
+									height="200" alt="photo.name">
+							</div>
+						</div>
+					</div> -->
 					<!-- UPLOAD PENDENTE -->
 					<div *ngIf="statusUpload === 'pendente'">
 						<div class="custom-file my-3">
 							<input type="file" accept="image/*" class="custom-file-input" id="customFileInput"
-								(change)="getImageFile($event)" />
+								(change)="getImageFile($event, 'photo')" />
 							<label class="custom-file-label"
 								for="customFileInput">{{ photo ? photo.name : "Escolha uma foto" }}
 							</label>
@@ -57,7 +67,7 @@
 					<button type="button" class="btn btn-info" (click)="resetModalAddPost()">
 						Limpar
 					</button>
-					<button type="submit" class="btn btn-primary">
+					<button type="submit" class="btn btn-primary" [disabled]="formPost.invalid">
 						Post
 					</button>
 

@@ -43,7 +43,6 @@ export class AddPostComponent implements OnInit {
 	}
 
 	public createPost(): void {
-		console.log('status upload', this.statusUpload)
 		this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
 		this.db.craetePost({
 			email: this.userEmail,
@@ -63,7 +62,6 @@ export class AddPostComponent implements OnInit {
 				&&
 				(this.statusUpload === UPLOAD_STATUS.ANDAMENTO)))
 			.subscribe(() => {
-				console.log('UPLOAD PERCENT FAKE: ', this.uploadPercent + " %");
 				this.uploadPercent = (this.uploadPercent >= 100) ? 100 : this.uploadPercent + 5;
 			});
 
@@ -75,12 +73,10 @@ export class AddPostComponent implements OnInit {
 			.pipe(takeWhile(() => uploadingInProgress))
 			.subscribe(
 				(value) => {
-					console.log(this.progress);
 					this.statusUpload = UPLOAD_STATUS.ANDAMENTO;
 
 					if ((this.progress.status == UPLOAD_STATUS.CONCLUIDO)
 						|| (this.progress.status == UPLOAD_STATUS.ERRO)) {
-						console.log('STOPED UPLOAD TRAKING!');
 
 						this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
 						this.closeModal();
@@ -109,7 +105,6 @@ export class AddPostComponent implements OnInit {
 	}
 
 	private resetModalAddPost(): void {
-		console.log('reset moral values')
 		this.photo = null;
 		this.photos = [];
 		this.statusUpload = UPLOAD_STATUS.PENDENTE;
@@ -127,7 +122,6 @@ export class AddPostComponent implements OnInit {
 		let files: any = (event.target as HTMLInputElement).files;
 		let file: File = (files && files.length > 0) ? files[0] : null;
 		this.photo = file;
-		console.log('FOTO: ', this.photo);
 
 		//this.formPost.get(formImageName).setValue(this.photo);
 
@@ -145,7 +139,6 @@ export class AddPostComponent implements OnInit {
 
 		var mimeType = files[0].type;
 		if (mimeType.match(/image\/*/) == null) {
-			console.error("Only images are supported.");
 			return;
 		}
 

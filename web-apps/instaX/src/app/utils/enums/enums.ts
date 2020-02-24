@@ -4,3 +4,4 @@ export enum UPLOAD_STATUS {
 	ANDAMENTO = 'andamento',
 	ERRO = 'erro'
 }
+

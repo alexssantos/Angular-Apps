@@ -1,19 +1,16 @@
-import * as firebase from 'firebase';
+//firebase
+import * as firebase from 'firebase/app';
+import 'firebase/storage';
+import 'firebase/database';
+
 import { Progress } from './progress.service';
 import { Injectable } from '@angular/core';
 import { UPLOAD_STATUS } from 'src/app/utils/enums/enums';
+import { DB_CONSTS } from 'src/app/utils/db.consts';
 
 
 @Injectable()
 export class Db {
-	private DATA_DOCS = {
-		POSTS: 'posts',
-		USER_DETAIL: 'user_detail'
-	};
-
-	private DATA_STORAGE = {
-		IMAGES: 'images'
-	};
 
 	constructor(
 		private progress: Progress
@@ -23,11 +20,12 @@ export class Db {
 
 		console.log('createPost - post:', post);
 		const post_key = btoa(post.email);
+		console.log('Create post key', post_key)
 		const image_url = Date.now().toString() + post_key;
 
 		//post
 		firebase.database()
-			.ref(`${this.DATA_DOCS.POSTS}/${post_key}`)
+			.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
 			.push({
 				title: post.title,
 				image_url: image_url
@@ -49,7 +47,7 @@ export class Db {
 
 	private uploadPhoto(imageBlob: File, imageUrl: string): void {
 
-		firebase.storage().ref().child(`${this.DATA_STORAGE.IMAGES}/${imageUrl}`)
+		firebase.storage().ref().child(`${DB_CONSTS.DATA_STORAGE.IMAGES}/${imageUrl}`)
 			// Create blob
 			.put(imageBlob)
 			// Tracking state.
@@ -68,5 +66,20 @@ export class Db {
 					console.log("Photo successfully uploaded!");
 					this.progress.status = UPLOAD_STATUS.CONCLUIDO;
 				});
+	}
+
+	public GetPosts(email: string): any {
+
+		const post_key = btoa(email);
+
+		firebase.database()
+			.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
+			.once('value', (snapshot: any) => {
+				console.log('Database posts was getted!', snapshot.val());
+
+				snapshot.forEach((child) => {
+					console.log('child', child.val())
+				});
+			});
 	}
 }

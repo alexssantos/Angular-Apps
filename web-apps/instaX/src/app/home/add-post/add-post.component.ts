@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validator, Validators } from '@angular/forms';
 import { Db } from 'src/app/services/db.service';
 import * as firebase from 'firebase';
@@ -9,6 +9,7 @@ import * as $ from 'jquery'
 import { UPLOAD_STATUS } from 'src/app/utils/enums/enums';
 import { MyAuthService } from 'src/app/services/my-auth.service';
 
+
 @Component({
 	selector: 'app-add-post',
 	templateUrl: './add-post.component.html',
@@ -17,6 +18,7 @@ import { MyAuthService } from 'src/app/services/my-auth.service';
 export class AddPostComponent implements OnInit {
 
 	@ViewChild('closeModal', null) closeModalBtn: ElementRef;
+	@Output('onUpdateTimeline') public updateTimeline: EventEmitter<any> = new EventEmitter();
 
 	public formPost: FormGroup = new FormGroup({
 		title: new FormControl(null, [Validators.required, Validators.minLength(1), Validators.maxLength(120)]),
@@ -83,6 +85,7 @@ export class AddPostComponent implements OnInit {
 						this.statusUpload = UPLOAD_STATUS.CONCLUIDO;
 						this.closeModal();
 
+						this.updateTimeline.emit();
 						uploadingInProgress = false;
 					}
 				},

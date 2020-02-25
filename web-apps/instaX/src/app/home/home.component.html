@@ -16,6 +16,6 @@
 
 <br /><br /><br />
 <div class="container">
-	<app-posts></app-posts>
-	<app-add-post></app-add-post>
+	<app-posts #posts></app-posts>
+	<app-add-post (onUpdateTimeline)="getTimeline()"></app-add-post>
 </div>

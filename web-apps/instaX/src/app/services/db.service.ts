@@ -82,25 +82,19 @@ export class Db {
 			const post_key = btoa(email);
 			firebase.database()
 				.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
+				.orderByKey()
 				.once('value')
 				.then((snapshot: any) => {
 
 					this.getUserDetails(email)
 						.then((userDetail: any) => {
-							console.log('then user detail:', userDetail);
 							result.userDetail = userDetail;
-
 						})
 						.finally(() => {
-							console.log('end getting  user detail - FINNALY.');
-
-							// console.log(snapshot.val())
-							// let postsLength = Object.values(snapshot.val()).length;
-
 							snapshot.forEach((rawPost: any) => {
 								let post = rawPost.val();
 								this.getUrlPhotoFull(post, result);
-							});//foreach
+							});//foreach							
 						});
 
 					console.log(result);
@@ -130,7 +124,6 @@ export class Db {
 
 				post.photoUrlFull = full_url;
 				result.postList.push(post);
-				console.log('Post com photo url', post)
 			})
 			.catch((error) => console.error(`${error.message}`, error));
 	}

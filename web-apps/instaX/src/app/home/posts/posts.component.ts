@@ -9,7 +9,8 @@ import * as firebase from 'firebase';
 })
 export class PostsComponent implements OnInit {
 
-	private dataPost: any
+	private dataPost: any;
+	public userEmail: string;
 
 	constructor(
 		private db: Db,
@@ -18,16 +19,19 @@ export class PostsComponent implements OnInit {
 	ngOnInit() {
 		firebase.auth().onAuthStateChanged((user) => {
 			if ((user !== null) && (user.email)) {
-				this.updateTimeline(user.email);
+				this.userEmail = user.email;
+				this.updateTimeline();
 			}
 		});
 	}
 
-	private updateTimeline(email: string): void {
+	public updateTimeline(email?: string): void {
+		email = (email) ? email : this.userEmail;
+
 		this.db.GetPosts(email)
 			.then((data) => {
 				this.dataPost = data;
-				console.log('Datapost: ', this.dataPost);
+				console.log(this.dataPost);
 			})
 	}
 

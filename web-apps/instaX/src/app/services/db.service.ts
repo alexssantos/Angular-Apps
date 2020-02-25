@@ -12,29 +12,31 @@ import { DB_CONSTS } from 'src/app/utils/db.consts';
 @Injectable()
 export class Db {
 
+	public userDetail: any;
+
 	constructor(
 		private progress: Progress
 	) { }
 
-	public craetePost(post: any): void {
+	public craetePost(snapshotPost: any): void {
 
-		console.log('createPost - post:', post);
-		const post_key = btoa(post.email);
-		console.log('Create post key', post_key)
+		console.log('createPost - snapshotPost:', snapshotPost);
+		const post_key = btoa(snapshotPost.email);
+		console.log('Create snapshotPost key', post_key)
 		const image_url = Date.now().toString() + post_key;
 
-		//post
+		//snapshotPost
 		firebase.database()
 			.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
 			.push({
-				title: post.title,
+				title: snapshotPost.title,
 				image_url: image_url
 			})
 			.then((ref) => {
 				console.log("Document successfully written!", ref);
 
-				if (post.image) {
-					this.uploadPhoto(post.image, image_url);
+				if (snapshotPost.image) {
+					this.uploadPhoto(snapshotPost.image, image_url);
 				}
 				else {
 					this.progress.status = UPLOAD_STATUS.CONCLUIDO;
@@ -68,18 +70,68 @@ export class Db {
 				});
 	}
 
-	public GetPosts(email: string): any {
+	public GetPosts(email: string): Promise<any> {
 
-		const post_key = btoa(email);
+		return new Promise((done, reject) => {
 
-		firebase.database()
-			.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
-			.once('value', (snapshot: any) => {
-				console.log('Database posts was getted!', snapshot.val());
+			let result = {
+				postList: [],
+				userDetail: null
+			}
 
-				snapshot.forEach((child) => {
-					console.log('child', child.val())
-				});
-			});
+			const post_key = btoa(email);
+			firebase.database()
+				.ref(`${DB_CONSTS.DATA_DOCS.POSTS}/${post_key}`)
+				.once('value')
+				.then((snapshot: any) => {
+
+					this.getUserDetails(email)
+						.then((userDetail: any) => {
+							console.log('then user detail:', userDetail);
+							result.userDetail = userDetail;
+
+						})
+						.finally(() => {
+							console.log('end getting  user detail - FINNALY.');
+
+							// console.log(snapshot.val())
+							// let postsLength = Object.values(snapshot.val()).length;
+
+							snapshot.forEach((rawPost: any) => {
+								let post = rawPost.val();
+								this.getUrlPhotoFull(post, result);
+							});//foreach
+						});
+
+					console.log(result);
+					done(result);
+				})
+				.catch((error) => console.error(`${error.message}`, error));
+
+		})
+	}//func
+
+	public getUserDetails(email: string): Promise<any> {
+		let user_detail_key = btoa(email);
+		let user_detail_ref = `${DB_CONSTS.DATA_DOCS.USER_DETAIL}/${user_detail_key}`
+
+		return firebase.database().ref(user_detail_ref)
+			.once('value')
+			.then((snapshot: any) => snapshot.val())
+			.catch((error) => console.error(`${error.message}`, error));
+	}
+
+	public getUrlPhotoFull(post, result: any): void {
+		firebase.storage().ref()
+			.child(`${DB_CONSTS.DATA_STORAGE.IMAGES}/${post.image_url}`)
+			//pegando a URL (com token) da imagem no storage
+			.getDownloadURL()
+			.then((full_url) => {
+
+				post.photoUrlFull = full_url;
+				result.postList.push(post);
+				console.log('Post com photo url', post)
+			})
+			.catch((error) => console.error(`${error.message}`, error));
 	}
 }

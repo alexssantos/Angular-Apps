@@ -7,6 +7,7 @@ import { Subject, interval } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import * as $ from 'jquery'
 import { UPLOAD_STATUS } from 'src/app/utils/enums/enums';
+import { MyAuthService } from 'src/app/services/my-auth.service';
 
 @Component({
 	selector: 'app-add-post',
@@ -30,7 +31,8 @@ export class AddPostComponent implements OnInit {
 
 	constructor(
 		private db: Db,
-		private progress: Progress
+		private progress: Progress,
+		private myAuth: MyAuthService
 	) { }
 
 	ngOnInit() {
@@ -114,7 +116,12 @@ export class AddPostComponent implements OnInit {
 
 	private startTrackingUserState(): void {
 		firebase.auth().onAuthStateChanged((user) => {
-			this.userEmail = user.email;
+			if ((user !== null) && (user.email)) {
+				this.userEmail = user.email;
+			}
+			else {
+				this.myAuth.logout();
+			}
 		});
 	}
 

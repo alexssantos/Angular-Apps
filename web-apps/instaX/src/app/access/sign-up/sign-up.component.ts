@@ -12,15 +12,16 @@ export class SignUpComponent implements OnInit {
 	@Output() public eventSignUp: EventEmitter<string> = new EventEmitter();
 
 	public formSignup: FormGroup = new FormGroup({
+		//TODO: incluir Validators
 		email: new FormControl(),
 		full_name: new FormControl(),
 		user_name: new FormControl(),
 		password: new FormControl()
 	});
 
-	constructor(private myAuthService: MyAuthService) {}
+	constructor(private myAuthService: MyAuthService) { }
 
-	ngOnInit() {}
+	ngOnInit() { }
 
 	public showLoginPainel(): void {
 		this.eventSignUp.emit("login");

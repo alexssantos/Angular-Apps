@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HighchartsComponent } from './charts/highcharts/highcharts.component';
 import { AngularHighchartsComponent } from './charts/angular-highcharts/angular-highcharts.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
 	declarations: [
@@ -12,7 +14,9 @@ import { AngularHighchartsComponent } from './charts/angular-highcharts/angular-
 		AngularHighchartsComponent
 	],
 	imports: [
-		BrowserModule
+		BrowserModule,
+		BrowserAnimationsModule,
+		MatTabsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

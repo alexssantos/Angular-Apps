@@ -1,4 +1,4 @@
-.home {
+/* .home {
 	height: 98vh;
 
 	display: flex;
@@ -6,7 +6,7 @@
 	align-items: center;
 
 	margin: auto;
-}
+} */
 
 .home app-highcharts,
 .home app-angular-highcharts {
@@ -16,4 +16,16 @@
 	margin: auto;
 
 	background: #f3f3f3;
+}
+
+.my-mat-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 16px;
+	padding: 16px;
+	border-radius: 8px;
+
+	height: 600px;
+	width: 600px;
 }

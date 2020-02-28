@@ -9,8 +9,8 @@ import * as Highcharts from 'highcharts';
 })
 export class HighchartsComponent implements AfterViewInit {
 
-	@ViewChild('chartTarget') chartTarget: ElementRef;
-	chart: Highcharts.ChartObject;
+	@ViewChild('highChartItem') chartTarget: ElementRef;
+	private chartObj: Highcharts.ChartObject;
 
 	title = 'charts-sample';
 
@@ -18,9 +18,11 @@ export class HighchartsComponent implements AfterViewInit {
 
 	ngAfterViewInit(): void {
 
-		const opts: Highcharts.Options = {
+		// MOCK
+		const optsMock: Highcharts.Options = {
 			chart: {
-				type: 'bar'
+				type: 'bar',
+				backgroundColor: '#f3f3f3'
 			},
 			title: {
 				text: 'Fruit Consumption'
@@ -42,14 +44,17 @@ export class HighchartsComponent implements AfterViewInit {
 			}]
 		};
 
-		this.chart = chart(this.chartTarget.nativeElement, opts);
+		this.chartObj = chart(this.chartTarget.nativeElement, optsMock);
 	}
 
 
 	addSeries() {
-		this.chart.addSeries({
+		this.chartObj.addSeries({
 			name: 'NameTeste',
 			data: [2, 5, 9]
 		});
+	}
+
+	private removeSeries(): void {
 	}
 }

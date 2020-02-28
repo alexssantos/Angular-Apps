@@ -1,7 +1,6 @@
 .home {
 	height: 98vh;
 
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -9,10 +8,12 @@
 	margin: auto;
 }
 
-app-highcharts {
-	border: 2px red dotted;
-
+.home app-highcharts,
+.home app-angular-highcharts {
 	height: 600px;
 	width: 600px;
 
+	margin: auto;
+
+	background: #f3f3f3;
 }

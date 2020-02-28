@@ -1,13 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-	<h1>
-		HighChart Test!
+	<h1 style="text-align: center; margin: 5rem;">
+		{{ title }}
 	</h1>
 </div>
 
 <div>
-	<button (click)="addSeries()">+ Series</button>
+	<button (click)="addSeries()">+ Barra</button>
+	<button (click)="removeSeries()">- Barra</button>
 </div>
-<div #chartTarget>
+<div #highChartItem>
 	chart target
 </div>

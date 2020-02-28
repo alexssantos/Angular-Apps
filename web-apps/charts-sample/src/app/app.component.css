@@ -1,0 +1,11 @@
+.home {
+	border: 2px red dotted;
+	height: 98vh;
+
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: auto;
+}

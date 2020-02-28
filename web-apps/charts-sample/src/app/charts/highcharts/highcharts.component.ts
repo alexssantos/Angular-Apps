@@ -20,7 +20,6 @@ export class HighchartsComponent implements AfterViewInit {
 
 		const opts: Highcharts.Options = {
 			chart: {
-				renderTo: 'container',
 				type: 'bar'
 			},
 			title: {

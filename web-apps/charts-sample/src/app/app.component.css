@@ -1,5 +1,4 @@
 .home {
-	border: 2px red dotted;
 	height: 98vh;
 
 
@@ -8,4 +7,12 @@
 	align-items: center;
 
 	margin: auto;
+}
+
+app-highcharts {
+	border: 2px red dotted;
+
+	height: 600px;
+	width: 600px;
+
 }

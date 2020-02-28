@@ -1,15 +1,23 @@
 <!-- header tab menu -->
 <mat-tab-group dynamicHeight>
-	<mat-tab label="Short tab">
+	<mat-tab label="Highchart">
 		<div class="my-mat-box mat-elevation-z4">
-			Small content
 			<app-angular-highcharts *ngIf="false"></app-angular-highcharts>
 		</div>
 	</mat-tab>
-	<mat-tab label="Long tab">
+	<mat-tab label="ng Highchart">
 		<div class="my-mat-box mat-elevation-z4">
-			Large content
 			<app-highcharts *ngIf="true"></app-highcharts>
+		</div>
+	</mat-tab>
+	<mat-tab label="Chart 3">
+		<div class="my-mat-box mat-elevation-z4">
+			<p>Algum texto</p>
+		</div>
+	</mat-tab>
+	<mat-tab label="Chart 4">
+		<div class="my-mat-box mat-elevation-z4">
+			<p>Algum texto</p>
 		</div>
 	</mat-tab>
 </mat-tab-group>

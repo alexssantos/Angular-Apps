@@ -48,18 +48,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chartTest:build"
+            "browserTarget": "charts-sample:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "chartTest:build:production"
+              "browserTarget": "charts-sample:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chartTest:build"
+            "browserTarget": "charts-sample:build"
           }
         },
         "test": {
@@ -101,11 +101,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "chartTest:serve"
+            "devServerTarget": "charts-sample:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "chartTest:serve:production"
+              "devServerTarget": "charts-sample:serve:production"
             }
           }
         },

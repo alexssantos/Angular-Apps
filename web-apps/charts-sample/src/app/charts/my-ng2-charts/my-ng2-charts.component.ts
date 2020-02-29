@@ -19,7 +19,11 @@ export class MyNg2ChartsComponent implements OnInit {
 	public pieChartType: ChartType = 'pie';
 	public pieChartLegend = true;
 	public pieChartPlugins = [];
-	constructor() { }
+
+	constructor() {
+		monkeyPatchChartJsTooltip();
+		monkeyPatchChartJsLegend();
+	}
 
 	ngOnInit(): void {
 	}

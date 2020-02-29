@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "charts-sample"
+  "defaultProject": "charts-sample",
+  "cli": {
+    "analytics": "0db49511-c76c-42e3-9b43-9a8fb483ee4b"
+  }
 }

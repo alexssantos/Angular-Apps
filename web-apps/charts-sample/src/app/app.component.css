@@ -14,7 +14,7 @@ app-angular-highcharts {
 	width: 100%;
 
 	margin: 0px;
-
+	border-radius: 8px;
 	background: #f3f3f3;
 }
 
@@ -22,6 +22,7 @@ app-angular-highcharts {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	
 	margin: 16px;
 	padding: 16px;
 	border-radius: 8px;

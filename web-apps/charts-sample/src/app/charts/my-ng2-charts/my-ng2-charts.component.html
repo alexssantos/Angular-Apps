@@ -1,13 +1,60 @@
-<p>Pie Chart</p>
-<div style="display: block;">
-	<canvas
-		baseChart
-		[data]="pieChartData"
-		[labels]="pieChartLabels"
-		[chartType]="pieChartType"
-		[options]="pieChartOptions"
-		[plugins]="pieChartPlugins"
-		[legend]="pieChartLegend"
-	>
-	</canvas>
+<div style="display: flex; flex-direction: row;">
+	<div style="width: 400px; height: 450px; background-color: #ffd0ce;">
+		<p style="text-align: center;">Pie Chart</p>
+		<canvas
+			baseChart
+			[data]="pieChartData"
+			[labels]="pieChartLabels"
+			[chartType]="pieChartType"
+			[options]="pieChartOptions"
+			[plugins]="pieChartPlugins"
+			[legend]="pieChartLegend"
+		>
+		</canvas>
+	</div>
+
+	<div style="width: 400px; height: 450px; background-color: #fffdce;">
+		<p style="text-align: center;">Bar Chart</p>
+		<canvas
+			baseChart
+			width="400"
+			height="400"
+			[datasets]="barChartData"
+			[labels]="barChartLabels"
+			[options]="barChartOptions"
+			[plugins]="barChartPlugins"
+			[legend]="barChartLegend"
+			[chartType]="barChartType"
+		>
+		</canvas>
+	</div>
+
+	<div style="width: 400px; height: 450px; background-color: #80d6ff;">
+		<p style="text-align: center;">Line Chart</p>
+		<canvas
+			baseChart
+			width="400"
+			height="400"
+			[datasets]="lineChartData"
+			[labels]="lineChartLabels"
+			[options]="lineChartOptions"
+			[colors]="lineChartColors"
+			[legend]="lineChartLegend"
+			[chartType]="lineChartType"
+			[plugins]="lineChartPlugins"
+		>
+		</canvas>
+	</div>
+
+	<div style="width: 800px; height: 450px; background-color: #cfffce;">
+		<p style="text-align: center;">Radar Chart</p>
+		<canvas
+			baseChart
+			[datasets]="radarChartData"
+			[options]="radarChartOptions"
+			[labels]="radarChartLabels"
+			[chartType]="radarChartType"
+		>
+		</canvas>
+	</div>
 </div>

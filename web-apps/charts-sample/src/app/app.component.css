@@ -19,18 +19,27 @@ app-my-ng2-charts {
 	background: #f3f3f3;
 }
 
-.my-mat-box {
+.my-mat-box, .my-full-box {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 	margin: 16px;
 	padding: 16px;
 	border-radius: 8px;
 
-	/*View Heigth (vh), View Width (vw) units 
+}
+
+.my-mat-box {	
+	border-radius: 8px;
+
+		/*View Heigth (vh), View Width (vw) units 
 	 * se baseiam no tamanho de uma tela atual.
 	 * exemplo: https://codepen.io/SitePoint/pen/gmdRYx
 	 */
 	height: 85vh;
+}
+
+.my-full-box {
+	height: 95%;
 }

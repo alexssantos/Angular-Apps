@@ -3,6 +3,13 @@ import { ChartType, ChartOptions, ChartDataSets, RadialChartOptions } from 'char
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
 
 
+/* 
+====================================================
+CODUMENTATION - ng2-charts
+https://github.com/valor-software/ng2-charts
+====================================================
+*/
+
 @Component({
 	selector: 'app-my-ng2-charts',
 	templateUrl: './my-ng2-charts.component.html',
@@ -10,9 +17,10 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 })
 export class MyNg2ChartsComponent implements OnInit {
 
-	// ===================
+	// =========================================================
 	// Pie
-	// ===================
+	// =========================================================
+
 	public pieChartOptions: ChartOptions = {
 		responsive: true,
 	};
@@ -22,64 +30,129 @@ export class MyNg2ChartsComponent implements OnInit {
 	public pieChartLegend = true;
 	public pieChartPlugins = [];
 
-	// ===================
+	// =========================================================
 	// bar
-	// ===================
+	// =========================================================
+
 	public barChartOptions: ChartOptions = {
 		responsive: true,
 	};
-	public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
 	public barChartType: ChartType = 'bar';
 	public barChartLegend = true;
 	public barChartPlugins = [];
-
+	public MAX_FILDS_BAR = 7;
+	public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
 	public barChartData: ChartDataSets[] = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-		{ data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_BAR),
+			label: 'Series A'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_BAR),
+			label: 'Series B'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_BAR),
+			label: 'Series C'
+		},
 	];
 
-	// ===================
+	// =========================================================
 	// line
-	// ===================
-	public lineChartData: ChartDataSets[] = [
-		{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-	];
-	public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	// =========================================================
 
 	public lineChartOptions: ChartOptions = {
 		responsive: true,
 	};
 	public lineChartColors: Color[] = [
-		{
-			borderColor: 'black',
-			backgroundColor: 'rgba(255,0,0,0.3)',
-		},
+		{ borderColor: 'black', backgroundColor: 'rgba(255,0,0,0.3)' }
 	];
 	public lineChartLegend = true;
 	public lineChartType = 'line';
 	public lineChartPlugins = [];
+	public MAX_FILDS_LINE = 7;
+	public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	public lineChartData: ChartDataSets[] = [
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
+			label: 'Series A'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
+			label: 'Series B'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
+			label: 'Series C'
+		},
+	];
 
-	// ===================
+
+	// =========================================================
 	// radar
-	// ===================
+	// =========================================================
+
 	public radarChartOptions: RadialChartOptions = {
 		responsive: true,
 	};
-	public radarChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
-
-	public radarChartData: ChartDataSets[] = [
-		{ data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
-		{ data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B' }
-	];
+	public MAX_FILDS_RADAR = 7;
 	public radarChartType: ChartType = 'radar';
+	public radarChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+	public radarChartData: ChartDataSets[] = [
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
+			label: 'Series A'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
+			label: 'Series B'
+		},
+		{
+			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
+			label: 'Series C'
+		},
+	];
 
 
-	constructor() {
-		monkeyPatchChartJsTooltip();
-		monkeyPatchChartJsLegend();
-	}
+	constructor() { }
 
 	ngOnInit(): void {
 	}
 
+	private removeLineChart(): void {
+		this.lineChartData.pop();
+	}
+
+	private addLineChart(dados: number[], titulo: string): void {
+		//dados = this.getMockRamdonData(this.MAX_FILDS_LINE)
+		//titulo = `Series ${this.getRamdon()}`;
+
+		let line = {
+			data: dados,
+			label: titulo
+		}
+		this.lineChartData.push(line);
+	}
+
+	private getLineChartData(): void {
+
+	}
+
+
+	// ========================================================================
+	// MOCK DATA
+	// ========================================================================
+
+	private getMockRamdonData(length: number): number[] {
+		let data: number[] = [];
+		for (let i = 0; i < length; i++) {
+			data.push(this.getRamdon());
+		}
+		return data
+	}
+
+	private getRamdon(min: number = 0, max: number = 100): number {
+		return Math.round(Math.random() * (max - min) + min);
+	}
 }
+

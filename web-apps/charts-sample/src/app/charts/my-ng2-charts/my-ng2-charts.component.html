@@ -1,4 +1,4 @@
-<div style="display: flex; flex-direction: row;">
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
 	<div style="width: 400px; height: 450px; background-color: #ffd0ce;">
 		<p style="text-align: center;">Pie Chart</p>
 		<canvas
@@ -17,8 +17,8 @@
 		<p style="text-align: center;">Bar Chart</p>
 		<canvas
 			baseChart
-			width="400"
-			height="400"
+			width="400px"
+			height="400px"
 			[datasets]="barChartData"
 			[labels]="barChartLabels"
 			[options]="barChartOptions"
@@ -31,10 +31,12 @@
 
 	<div style="width: 400px; height: 450px; background-color: #80d6ff;">
 		<p style="text-align: center;">Line Chart</p>
+		<button (click)="removeLineChart()">REMOVE</button>
+		<button (click)="addLineChart()">ADD</button>
 		<canvas
+			width="400px"
+			height="400px"
 			baseChart
-			width="400"
-			height="400"
 			[datasets]="lineChartData"
 			[labels]="lineChartLabels"
 			[options]="lineChartOptions"

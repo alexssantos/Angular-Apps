@@ -1,6 +1,22 @@
-<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+<div
+	*ngIf="loading"
+	id="spinner"
+	style="
+		display: flex; 
+		justify-content: center; 
+		align-items: center;
+		width: 100%;
+		height: 100%;"
+>
+	<mat-spinner></mat-spinner>
+</div>
+<div
+	*ngIf="!loading"
+	style="display: flex; flex-direction: row; flex-wrap: wrap;"
+>
 	<div style="width: 400px; height: 450px; background-color: #ffd0ce;">
 		<p style="text-align: center;">Pie Chart</p>
+		<button (click)="getChartData()">LOADING FAKE</button>
 		<canvas
 			baseChart
 			[data]="pieChartData"
@@ -29,7 +45,7 @@
 		</canvas>
 	</div>
 
-	<div style="width: 400px; height: 450px; background-color: #80d6ff;">
+	<div style="width: 400px; height: 450px; background-color: #c2ecff;">
 		<p style="text-align: center;">Line Chart</p>
 		<button (click)="removeLineChart()">REMOVE</button>
 		<button (click)="addLineChart()">ADD</button>

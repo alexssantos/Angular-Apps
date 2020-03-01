@@ -8,7 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ChartsModule } from "ng2-charts";
 import { MyNg2ChartsComponent } from './charts/my-ng2-charts/my-ng2-charts.component';
-
+import { HttpClientModule } from "@angular/common/http";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
 	declarations: [
@@ -19,9 +20,11 @@ import { MyNg2ChartsComponent } from './charts/my-ng2-charts/my-ng2-charts.compo
 	],
 	imports: [
 		BrowserModule,
+		HttpClientModule,
 		BrowserAnimationsModule,
 		MatTabsModule,
-		ChartsModule
+		ChartsModule,
+		MatProgressSpinnerModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

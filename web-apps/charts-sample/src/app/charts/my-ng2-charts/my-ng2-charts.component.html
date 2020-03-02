@@ -15,8 +15,10 @@
 	style="display: flex; flex-direction: row; flex-wrap: wrap;"
 >
 	<div style="width: 400px; height: 450px; background-color: #ffd0ce;">
-		<p style="text-align: center;">Pie Chart</p>
-		<button (click)="getChartData()">LOADING FAKE</button>
+		<div style="text-align: center;">
+			<p>Pie Chart</p>
+			<button (click)="getChartData()">LOADING DATA API</button>
+		</div>
 		<canvas
 			baseChart
 			[data]="pieChartData"

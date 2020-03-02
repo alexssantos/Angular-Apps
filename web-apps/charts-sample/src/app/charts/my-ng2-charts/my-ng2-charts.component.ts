@@ -18,7 +18,7 @@ site: https://valor-software.com/ng2-charts/
 })
 export class MyNg2ChartsComponent implements OnInit {
 
-	private API_URL = "http://localhost:51324/api/";
+	private API_URL = "http://localhost:5000/api/";
 	private loading: boolean;
 	private loadingColor: "primary";
 
@@ -95,75 +95,97 @@ export class MyNg2ChartsComponent implements OnInit {
 	// line
 	// =========================================================
 
-	public lineChartOptions: ChartOptions = {
-		responsive: true,
-	};
-	public lineChartColors: Color[] = [
-		{ borderColor: 'black', backgroundColor: 'rgba(255,0,0,0.3)' }
-	];
-	public lineChartLegend = true;
-	public lineChartType = 'line';
+	public lineChartOptions: ChartOptions;
+	public lineChartColors: Color[];
+	public lineChartLegend: boolean;
+	public lineChartType;
 	public lineChartPlugins = [];
-	public MAX_FILDS_LINE = 7;
-	public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-	public lineChartData: ChartDataSets[] = [
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
-			label: 'Series A'
-		},
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
-			label: 'Series B'
-		},
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_LINE),
-			label: 'Series C'
-		},
-	];
+	public lineChartLabels: Label[];
+	public lineChartData: ChartDataSets[];
+
+	public buildLineChart(data: any[] = null): void {
+		this.lineChartOptions = {
+			responsive: true,
+		};
+		this.lineChartColors = [
+			{ borderColor: 'black', backgroundColor: 'rgba(255,0,0,0.3)' }
+		];
+		this.lineChartLegend = true;
+		this.lineChartType = 'line';
+		this.lineChartPlugins = [];
+		let MAX_FILDS_LINE = 7;
+		this.lineChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+		if (data && data.length > 0) {
+			this.lineChartData = data;
+			return;
+		}
+
+		this.lineChartData = [
+			{
+				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				label: 'Series A'
+			},
+			{
+				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				label: 'Series B'
+			},
+			{
+				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				label: 'Series C'
+			},
+		];
+	}
 
 
 	// =========================================================
 	// radar
 	// =========================================================
 
-	public radarChartOptions: RadialChartOptions = {
-		responsive: true,
-	};
-	public MAX_FILDS_RADAR = 7;
-	public radarChartType: ChartType = 'radar';
-	public radarChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
-	public radarChartData: ChartDataSets[] = [
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
-			label: 'Series A'
-		},
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
-			label: 'Series B'
-		},
-		{
-			data: this.getMockRamdonData(this.MAX_FILDS_RADAR),
-			label: 'Series C'
-		},
-	];
+	public radarChartOptions: RadialChartOptions;
+	public radarChartType: ChartType;
+	public radarChartLabels: Label[];
+	public radarChartData: ChartDataSets[];
 
+	public buildRadarChart(data: any[] = null): void {
+		this.radarChartOptions = {
+			responsive: true,
+		};
+		let MAX_FILDS_RADAR = 7;
+		this.radarChartType = 'radar';
+		this.radarChartLabels = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+
+		if (data && data.length > 0) {
+			this.radarChartData = data;
+			return;
+		}
+
+		this.radarChartData = [
+			{
+				data: this.getMockRamdonData(MAX_FILDS_RADAR),
+				label: 'Series A'
+			},
+			{
+				data: this.getMockRamdonData(MAX_FILDS_RADAR),
+				label: 'Series B'
+			},
+			{
+				data: this.getMockRamdonData(MAX_FILDS_RADAR),
+				label: 'Series C'
+			},
+		];
+	}
 
 	constructor(
 		private http: HttpClient
 	) {
 		this.buildBarChart();
 		this.buildPieChart();
+		this.buildLineChart();
+		this.buildRadarChart();
 	}
 
 	ngOnInit(): void {
-	}
-
-	private fakeSpiner(): void {
-		this.loading = true;
-		setTimeout(() => {
-			console.log('loading stoped')
-			this.loading = false;
-		}, 3000);
 	}
 
 	private removeLineChart(): void {
@@ -199,18 +221,18 @@ export class MyNg2ChartsComponent implements OnInit {
 				}
 			},
 			(error) => {
-				console.log(`${error.message}`, error)
+				console.log(`${error.message}`, error);
 			},
 			() => {
 				this.loading = false;
-				console.log('sucesso')
+				console.log('get chart data finished!');
 			}
 		);
 	}
 
 	private buildChartByType(data, typeChart: string): void {
+
 		let chartsSeries = Object.keys(data);
-		console.log(`chartsSeries: ${chartsSeries}`)
 
 		if (chartsSeries == null || chartsSeries.length == 0) {
 			console.log('No item in chart Type: ', typeChart);
@@ -219,6 +241,7 @@ export class MyNg2ChartsComponent implements OnInit {
 
 		let newDataSet: any[] = [];
 		chartsSeries.forEach(serie => {
+
 			let objDataValues = data[serie];
 
 			newDataSet.push({
@@ -233,22 +256,16 @@ export class MyNg2ChartsComponent implements OnInit {
 				this.buildBarChart(newDataSet);
 				break;
 			case 'LINE':
-				//dataSet = this.lineChartData;
+				this.buildLineChart(newDataSet);
 				break;
 			case 'RADAR':
-				//dataSet = this.radarChartData;
+				this.buildRadarChart(newDataSet);
 				break;
 			case 'PIE':
 				let seriePie = "";
-				//this.buildPieChart2(data[seriePie]);
 				this.buildPieChart(data[seriePie]);
 				return;
 		}
-
-	}
-
-	private buildPieChart2(data): void {
-		console.log('Pie chart:', data)
 	}
 
 	// ========================================================================

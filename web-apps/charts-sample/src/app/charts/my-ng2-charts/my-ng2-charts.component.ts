@@ -193,7 +193,8 @@ export class MyNg2ChartsComponent implements OnInit {
 	}
 
 	private addLineChart(dados: number[], titulo: string): void {
-		dados = this.getMockRamdonData(this.MAX_FILDS_LINE)
+		let MAX_FILDS_LINE = 7;
+		dados = this.getMockRamdonData(MAX_FILDS_LINE)
 		titulo = `Series ${this.getRamdon()}`;
 
 		let line = {

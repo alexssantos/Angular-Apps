@@ -1,7 +1,8 @@
-import { User } from "../models/user.model";
-import * as firebase from "firebase";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { User } from '../models/user.model';
+import * as firebase from 'firebase';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { DB_CONSTS } from '../utils/db.consts';
 
 @Injectable()
 export class MyAuthService {
@@ -14,30 +15,29 @@ export class MyAuthService {
 
 		firebase
 			.auth()
-			.createUserWithEmailAndPassword(user.Email, user.Password)
+			.createUserWithEmailAndPassword(user.email, user.password)
 			.then((res: any) => {
-				console.log("USUARIO CRIADO");
+				// remover a senha para nao armazenar no banco
+				delete user.password;
 
-				//remover a senha para nao armazenar no banco
-				delete user.Password;
-
-				//salvando usuario no banco no path email na base64
-				let base64Email = btoa(user.Email);
+				// salvando usuario no banco no path email na base64
+				let base64Email = btoa(user.email);
+				let userDetailRef = `${DB_CONSTS.DATA_DOCS.USER_DETAIL}/${base64Email}`;
 				firebase
 					.database()
-					.ref(`user_detail/${base64Email}`)
+					.ref(userDetailRef)
 					.set(user)
 					.then(res2 => {
-						console.log("USUARIO SALVO", res2);
+						console.log("USUARIO SALVO - resposta", res2);
 					})
 					.catch((error2: Error) => {
-						console.log("ERRO - USUARIO SALVO");
+						console.log("ERRO - USUARIO NÃO SALVO");
 						console.log(error2);
 					});
 			})
 			.catch((error: Error) => {
-				console.log("ERRO - USUARIO CRIADO");
-				console.log(error);
+				console.log(error.message);
+				console.error(error);
 			});
 	}
 

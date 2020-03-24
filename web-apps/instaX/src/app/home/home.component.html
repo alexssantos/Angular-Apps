@@ -1,14 +1,21 @@
 <nav class="navbar fixed-top navbar-light bg-white">
-	<div class="container">
+	<div class="container my-auto">
+		<div class="add-post"></div>
 		<div class="logo"></div>
 		<div>
-			<div class="add-post"></div>
-			<a href="#" (click)="logout()" style="margin-left: 50px;">Sair</a>
+			<button type="button" class="btn btn-outline-primary mx-2" data-toggle="modal" data-target="#addPostModal">
+				Post
+			</button>
+			<button type="button" class="btn btn-outline-dark mx-2" (click)="logout()">
+				Sair
+			</button>
+
 		</div>
 	</div>
 </nav>
 
 <br /><br /><br />
 <div class="container">
-	<app-posts></app-posts>
+	<app-posts #posts></app-posts>
+	<app-add-post (onUpdateTimeline)="getTimeline()"></app-add-post>
 </div>

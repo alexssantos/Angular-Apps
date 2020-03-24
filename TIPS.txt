@@ -1,0 +1,4 @@
+Animate Libs -> Angular
+	- ng-animate: https://www.npmjs.com/package/ng-animate
+	- ng-fx: https://www.npmjs.com/package/ng-fx
+	- angular-animations:https://www.npmjs.com/package/angular-animations

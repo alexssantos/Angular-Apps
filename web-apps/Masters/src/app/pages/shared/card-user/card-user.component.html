@@ -1,0 +1,44 @@
+<div class="profile">
+	<div class="profile__picture">
+		<!-- <img src="http://i.pravatar.cc/250" alt="ananddavis" /> -->
+		<img *ngIf="!imgLoading" [src]="card.imgUrl" alt="ananddavis" />
+
+		<div *ngIf="imgLoading" class="spinner-border spn" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+
+	</div>
+	<div class="profile__header">
+		<div class="profile__account">
+			<h4 class="profile__username">{{ card.name }}</h4>
+		</div>
+		<div class="profile__edit">
+			<a class="profile__button" [routerLink]="['/profile', card.id]">Details</a>
+		</div>
+	</div>
+	<div class="profile__stats">
+		<div class="profile__stat">
+			<div class="profile__icon profile__icon--gold"><i class="fas fa-wallet"></i></div>
+			<div class="profile__value">{{card.valueLeft}} 
+				<div class="profile__key">Task/week</div>
+			</div>
+		</div>
+		<div class="profile__stat">
+			<div class="profile__icon profile__icon--blue"><i class="fas fa-signal"></i></div>
+			<div class="profile__value">{{card.valueMiddle}}
+				<div class="profile__key">Comments</div>
+			</div>
+		</div>
+		<div class="profile__stat">
+			<div class="profile__icon profile__icon--pink"><i class="fas fa-heart"></i></div>
+			<div class="profile__value">{{card.valueRight}}
+				<div class="profile__key">Helps</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 
+Based on: https://dribbble.com/shots/4883028-Profile-Stats
+Implemeted by: https://codepen.io/nad/pen/pZaebq?editors=1100
+-->

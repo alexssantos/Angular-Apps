@@ -1,0 +1,190 @@
+$award-border-color: rgb(255, 219, 59);
+$img-profile-default: '/src/assets/img/profile_card/default.jpg';
+// $tamanho_max: 150px;
+
+@keyframes popUp{
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(0px) scale(1);
+        
+        box-shadow: 
+            0px 3px 5px -1px rgba(0, 0, 0, 0.2), 
+            0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+            0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+    to {
+        transform: translateY(-20px) scale(1.1);
+        box-shadow: 
+            0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+            0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+            0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-20px) scale(1.1);
+        box-shadow: 
+            0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+            0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+            0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+    to {
+        transform: translateY(0px) scale(1);
+        box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+}
+
+@keyframes zoomUp {
+    from {
+        transform: scale(1);
+        
+        box-shadow: 
+            0px 3px 5px -1px rgba(0, 0, 0, 0.2), 
+            0px 6px 10px 0px rgba(0, 0, 0, 0.14), 
+            0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+    to {
+        transform: scale(1.3);
+        box-shadow: 
+            0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+            0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+            0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+}
+@keyframes zoomDown {
+    from {
+        transform: scale(1.3);
+        box-shadow: 
+            0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+            0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+            0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+    }
+    to {
+        transform: scale(1);
+        box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.row {
+
+	.btn {
+		width: 220px;
+	}
+	
+	.box-champ {
+        position: relative;
+		
+		.top-img{
+
+			.spn {
+				z-index: 999;
+				top: 35%;
+				left: 35%;
+				width: 30%;
+				height: 30%;			
+				border-width: 0.40rem;			
+			}      
+
+			img {
+				background-image: url($img-profile-default);
+			}
+		}
+		
+		.zoom {
+			cursor: pointer;
+            
+            animation: zoomDown ease-in-out 250ms forwards;
+
+            &:hover {
+                animation: zoomUp ease-in-out 400ms forwards;
+
+                //mat-elevation-z24
+                box-shadow: 
+                    0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+                    0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+                    0px 9px 46px 8px rgba(0, 0, 0, 0.12);                
+            }
+		}
+        
+        .slide {
+            cursor: pointer;
+            
+            animation: slideDown ease-in-out 350ms forwards;
+
+            &:hover {
+                animation: slideUp ease-in-out 350ms forwards;
+
+                //mat-elevation-z24
+                box-shadow: 
+                    0px 11px 15px -7px rgba(0, 0, 0, 0.2), 
+                    0px 24px 38px 3px rgba(0, 0, 0, 0.14), 
+                    0px 9px 46px 8px rgba(0, 0, 0, 0.12);                
+            }
+        }
+
+		.award {
+			height: 25%;
+			
+			position: absolute;
+			bottom: 23%;
+			right: 4%;
+			
+			border: solid 3px $award-border-color;
+			background: rgba($award-border-color, 0.50);
+			
+			&.aw-1 {
+				background: rgba(250, 179, 26, 0.85);
+				border: solid 4px $award-border-color;
+				bottom: 18%;
+				right: 2%;
+			}
+		}
+		
+		.progress {		
+			height: 0.7rem;
+			border: 2px solid #D36104;
+			border-radius: 10px;
+		}	
+	}
+}
+
+app-ranking-list {
+	min-height: 50vh;
+}
+
+// ===========================================
+// MEDIA QUERIES
+// ===========================================
+
+@import "node_modules/bootstrap/scss/_functions.scss";
+@import "node_modules/bootstrap/scss/_variables.scss";
+@import "node_modules/bootstrap/scss/_mixins.scss";
+
+// lasdscape less than 767.98px
+// @include media-breakpoint-down(md) { 
+// 	.my-mat-tabs {
+// 		display: none;		
+// 	}
+// }
+
+// XL: Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-down(xl) { }
+// LG:  Large devices (desktops, 992px and up)
+@include media-breakpoint-down(lg) { }
+// MD: Medium devices (tablets, 768px and up)
+@include media-breakpoint-down(md) { }
+// SM: Small devices (landscape phones, 576px and up)
+@include media-breakpoint-down(sm) { }
+
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap

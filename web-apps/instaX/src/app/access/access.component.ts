@@ -33,6 +33,7 @@ export class AccessComponent implements OnInit {
 	public stateBanner: string = 'criado';
 	public statePainel: string = 'criado';
 	public signUpPage: boolean = false;
+	public isAuthenticad: boolean = false;
 
 	constructor(
 		private myAuthService: MyAuthService,

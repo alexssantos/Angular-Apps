@@ -103,6 +103,7 @@ export class MyNg2ChartsComponent implements OnInit {
 	public lineChartLabels: Label[];
 	public lineChartData: ChartDataSets[];
 
+	public MAX_FILDS_LINE = 7;
 	public buildLineChart(data: any[] = null): void {
 		this.lineChartOptions = {
 			responsive: true,
@@ -113,7 +114,6 @@ export class MyNg2ChartsComponent implements OnInit {
 		this.lineChartLegend = true;
 		this.lineChartType = 'line';
 		this.lineChartPlugins = [];
-		let MAX_FILDS_LINE = 7;
 		this.lineChartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 		if (data && data.length > 0) {
@@ -123,15 +123,15 @@ export class MyNg2ChartsComponent implements OnInit {
 
 		this.lineChartData = [
 			{
-				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				data: this.getMockRamdonData(this.MAX_FILDS_LINE),
 				label: 'Series A'
 			},
 			{
-				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				data: this.getMockRamdonData(this.MAX_FILDS_LINE),
 				label: 'Series B'
 			},
 			{
-				data: this.getMockRamdonData(MAX_FILDS_LINE),
+				data: this.getMockRamdonData(this.MAX_FILDS_LINE),
 				label: 'Series C'
 			},
 		];

@@ -1,0 +1,115 @@
+<div class="page-content align-items-start">
+	<div class="container">
+		<!-- <h5 class="text-center">[Angular Material] "Table dynamically changing the columns displayed"</h5> -->
+		<div class="mx-auto">
+			<div class="row align-items-center justify-content-center mx-5">
+				<button type="button" mat-raised-button class="btn btn-danger m-2" (click)="changeKpi(0)">
+					<i class="fa fa-arrow-circle-up mr-2"></i>KPI A
+				</button>
+				<button type="button" mat-raised-button class="btn btn-round m-2 btn-success" (click)="changeKpi(1)">
+					<i class="fa fa-arrow-down mr-2"></i>KPI B
+				</button>
+				<button type="button" mat-raised-button class="btn btn-round m-2 btn-info" (click)="changeKpi(2)">
+					<i class="fa fa-address-card mr-2"></i>KPI C
+				</button>
+				<button type="button" mat-raised-button class="btn btn-round m-2 btn-warning" (click)="changeKpi(3)">
+					<i class="fa fa-bars mr-2"></i>KPI D
+				</button>
+			</div>
+
+			<hr>
+
+			<!-- Top3 Imagens -->
+			<div class="row m-0">
+				<!-- 1ºlugar -->
+				<div class="box-champ col-4 col-md-3 m-4 order-2" (click)="viewProfile()">
+
+					<!-- Imagem -->
+					<div class="top-img position-relative">
+						<img [src]="getPhotoOrDefault(userTop1.photoUrl)"
+							class="slide award-yes-img rounded-circle img-thumbnail mat-elevation-z3" />
+						<div *ngIf="userTop1.isUpdating" class="spinner-border spn position-absolute" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</div>
+					<img [src]="awardImg1" class="award aw-1 zoom rounded-circle img-thumbnail" />
+						
+					<!-- Score bar -->
+					<div class="row mt-2 justify-content-center">
+						<img class="mr-2" [src]="starIcon" width="7%" height="7%" />
+						<span class="badge badge-pill badge-warning">{{ userTop1.scoreKpi }} pts</span>
+					</div>
+					<!-- Progress bar -->
+					<div class="progress mt-2">
+						<div class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
+							role="progressbar" [style.width]="getPointsPercentStr(userTop1.scoreKpi)" aria-valuemin="0"
+							aria-valuemax="100">
+						</div>
+					</div>
+				</div>
+
+				<!-- 2ºlugar -->
+				<div class="box-champ col-3 col-md-2 m-auto order-1" (click)="viewProfile()">
+
+					<!-- Image -->
+					<div class="top-img position-relative">
+						<img [src]="getPhotoOrDefault(userTop2.photoUrl)"
+							class="slide award-no-img slide rounded-circle img-thumbnail mat-elevation-z6" />
+						<div *ngIf="userTop2.isUpdating" class="spinner-border spn position-absolute" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</div>				
+					<img [src]="awardImg2" class="award zoom rounded-circle img-thumbnail" />
+
+					<!-- Score bar -->
+					<div class="row mt-2 justify-content-center">
+						<img class="mr-2" [src]="starIcon" width="9%" height="9%" />
+						<span class="badge badge-pill badge-warning">
+							{{ userTop2.scoreKpi }} pts
+						</span>
+					</div>
+					<!-- Progress bar -->
+					<div class="progress mt-2">
+						<div class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
+							role="progressbar" [style.width]="getPointsPercentStr(userTop2.scoreKpi)" aria-valuemin="0"
+							aria-valuemax="100">
+						</div>
+					</div>
+				</div>
+
+				<!-- 3ºlugar -->
+				<div class="box-champ col-3 col-md-2 m-auto order-3" (click)="viewProfile()">
+
+					<!-- Image -->
+					<div class="top-img position-relative">
+						<img [src]="getPhotoOrDefault(userTop3.photoUrl)"
+							class="slide award-no-img slide rounded-circle img-thumbnail mat-elevation-z6" />
+						<div *ngIf="userTop3.isUpdating" class="spinner-border spn position-absolute" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</div>
+					<img [src]="awardImg3" class="award zoom rounded-circle img-thumbnail" />
+
+					<!-- Score bar -->
+					<div class="row mt-2 justify-content-center">
+						<img class="mr-2" [src]="starIcon" width="9%" height="9%" />
+						<span class="badge badge-pill badge-warning">{{ userTop3.scoreKpi }} pts</span>
+					</div>
+					<!-- Progress bar -->
+					<div class="progress mt-2">
+						<div class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
+							role="progressbar" [style.width]="getPointsPercentStr(userTop3.scoreKpi)" aria-valuemin="0"
+							aria-valuemax="100">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<hr />
+
+			<!-- Ranking List -->
+			<app-ranking-list #rankingListTag [top1]="userTop1" [top2]="userTop2" [top3]="userTop3">
+			</app-ranking-list>
+		</div>
+	</div>
+</div>

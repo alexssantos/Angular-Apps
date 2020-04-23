@@ -9,14 +9,13 @@ namespace MASTERS.API.Data
 		{ }
 
 		//tables
-		public DbSet<UserDetails> UserDetails { get; set; }
-		public DbSet<User> UserKpis { get; set; }
+		//public DbSet<UserDetails> UserDetails { get; set; }
+		public DbSet<User> Users { get; set; }
 		public DbSet<Kpi> Kpis { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Seed();
 		}
 	}
 }

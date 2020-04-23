@@ -2,7 +2,7 @@
 
 namespace MASTERS.API.Models
 {
-	public class UserKpi
+	public class User
 	{
 		public long Id { get; set; }
 		public string Name { get; set; }
@@ -10,7 +10,7 @@ namespace MASTERS.API.Models
 		public int Position { get; set; }
 
 		public int LastPosition { get; set; }
-		public virtual List<Kpi> KpiList { get; set; }
+		public ICollection<Kpi> KpiList { get; set; }
 
 	}
 }

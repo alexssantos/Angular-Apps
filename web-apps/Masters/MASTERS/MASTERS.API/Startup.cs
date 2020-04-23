@@ -20,9 +20,7 @@ namespace MASTERS.API
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<DataContext>(opt =>
-				opt.UseInMemoryDatabase("MyDatabase")
-			);
+			services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("MyMemoryDb"));
 			services.AddScoped<DataContext, DataContext>();
 
 			services.AddControllers();

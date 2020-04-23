@@ -10,18 +10,43 @@ namespace MASTERS.API.Data
 		private static int GetRandom(int max) => new Random().Next(max);
 		private static int GetRandomId() => GetRandom(int.MaxValue);
 
-		public static void Seed(this ModelBuilder modelBuilder)
+		public static void Seed(DataContext dataContext)
 		{
 			// User (1 x *) Kpi
-			modelBuilder.Entity<User>()
-				.HasMany(user => user.KpiList)
-				.WithOne(kpi => kpi.User);
+			//modelBuilder.Entity<User>()
+			//	.HasMany(user => user.KpiList)
+			//	.WithOne(kpi => kpi.User);
 
-			ProcessSeed(modelBuilder);
+			List<User> userList = new List<User>();
+			List<Kpi> kpiList = new List<Kpi>();
+
+			for (int i = 0; i < 40; i++)
+			{
+				User user = BuildUser(i);
+
+				List<Kpi> kpis = new List<Kpi>() {
+					BuildKpi("danger", "KPI-1", user.Id),
+					BuildKpi("success", "KPI-2", user.Id),
+					BuildKpi("info",  "KPI-3", user.Id),
+					BuildKpi("warning", "KPI-4", user.Id),
+				};
+
+				//UserDetails userDetails = new UserDetails();
+
+				kpiList.AddRange(kpis);
+				userList.Add(user);
+			};
+
+			//modelBuilder.Entity<User>().HasData(userList);
+			//modelBuilder.Entity<Kpi>().HasData(kpiList);
+
+			dataContext.Users.AddRange(userList);
+			dataContext.Kpis.AddRange(kpiList);
+			dataContext.SaveChanges();
 		}
 
 
-		public static void ProcessSeed(ModelBuilder modelBuilder)
+		public static void ProcessSeed(this ModelBuilder modelBuilder)
 		{
 			List<User> userList = new List<User>();
 			List<Kpi> kpiList = new List<Kpi>();
@@ -31,10 +56,10 @@ namespace MASTERS.API.Data
 				User user = BuildUser(i);
 
 				List<Kpi> kpis = new List<Kpi>() {
-					BuildKpi("danger", "KPI-1"),
-					BuildKpi("success", "KPI-2"),
-					BuildKpi("info",  "KPI-3"),
-					BuildKpi("warning", "KPI-4")
+					BuildKpi("danger", "KPI-1", user.Id),
+					BuildKpi("success", "KPI-2", user.Id),
+					BuildKpi("info",  "KPI-3", user.Id),
+					BuildKpi("warning", "KPI-4", user.Id),
 				};
 
 				//UserDetails userDetails = new UserDetails();
@@ -48,14 +73,15 @@ namespace MASTERS.API.Data
 
 		}
 
-		public static Kpi BuildKpi(string classWrap, string title)
+		public static Kpi BuildKpi(string classWrap, string title, long userId)
 		{
 			Kpi item = new Kpi()
 			{
 				Id = GetRandomId(),
 				Score = GetRandom(1000),
 				ClassWrapperName = classWrap,
-				Title = title
+				Title = title,
+				UserId = userId
 			};
 			return item;
 		}

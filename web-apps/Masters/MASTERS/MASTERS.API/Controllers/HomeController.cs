@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MASTERS.API.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace MASTERS.API.Controllers
 {
@@ -6,6 +9,16 @@ namespace MASTERS.API.Controllers
 	[ApiController]
 	public class HomeController : ControllerBase
 	{
+
+		[HttpGet("users")]
+		public async Task<IActionResult> Get([FromServices] DataContext context)
+		{
+			var userList = await context.Users
+				.AsNoTracking()
+				.ToListAsync();
+
+			return Ok(userList);
+		}
 
 
 

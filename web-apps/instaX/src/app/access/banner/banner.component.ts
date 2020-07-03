@@ -7,14 +7,15 @@ import { Imagem } from './imagem.model';
 	templateUrl: './banner.component.html',
 	styleUrls: ['./banner.component.scss'],
 	animations: [
-		trigger('bannerTrigger', [
-			state('escondido',
-				style({ opacity: 0 })),
-			state('visivel',
-				style({ opacity: 1 })),
-			transition('escondido <=> visivel', [
-				animate('1s ease-in')
-			])
+		trigger('bannerTrigger', 
+			//ANIMATION METADATA LIST
+			[
+				state('escondido',
+					style({ opacity: 0 })),
+				state('visivel',
+					style({ opacity: 1 })),
+
+				transition('escondido <=> visivel', [ animate('1s ease-in')])
 		])
 	]
 })

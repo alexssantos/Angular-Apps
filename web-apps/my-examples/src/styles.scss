@@ -1,4 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+
+
+
+
+// FONTS
+@import './scss/fonts';
+
+// ANGULAR MATERIAL
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "./scss/my-material";
+
+
+// =====================================================
+// GLOBAL
+
+html, body {	
+	//height: 100vh; // WARNING: NAO USAR 'vh'.
+	min-height: 100%;	
+	overflow-y: hidden;	
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+	
+.page-content {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	//ativando o scroll: width 100% -> 100vh
+	overflow-y: scroll;
+
+ 	min-width: 550px;
+	min-height: 70vh;
+
+	height: 100vh;
+
+	padding-top: 70px;
+	padding-bottom: 70px;
+}
+
+
+.debug-red{
+	border: 2px solid red;
+}
+
+.debug-blue{
+	border: 2px solid blue;
+}

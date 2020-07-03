@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +24,8 @@ import { HomeComponent } from './pages/home/home.component';
 	BrowserAnimationsModule,
 	MatButtonModule,
 	MatIconModule,
-	MatToolbarModule
+	MatToolbarModule,
+	MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,28 +1,36 @@
+<!-- TOOLBAR -->
 <mat-toolbar class="bg-white shadow fixed-top">
-	<button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-		<ng-container *ngIf="menuFechado; else closedIcon">
-			<mat-icon>menu</mat-icon>			
-		</ng-container>
-		<ng-template #closedIcon>
-			<mat-icon>close</mat-icon>
-		</ng-template>		
+	<button mat-icon-button (click)="drawer.toggle()">
+		<mat-icon>menu</mat-icon>
+		<!-- <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon> -->
 	</button>
 	<span>My Studies</span>
 
 	<span class="spacer"></span>
 
-	<button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+	<button mat-icon-button>
 		<mat-icon>favorite</mat-icon>
 	</button>
-	<button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+	<button mat-icon-button>
 		<mat-icon>share</mat-icon>
 	</button>
 </mat-toolbar>
 
-<div class="page-content debug-red">
-	<p>Meu app</p>
-	
-	<button type="button" class="btn btn-danger">
-		Bootstrap
-	</button>
-</div>
+
+<mat-drawer-container class="drawer-container">
+	<mat-drawer #drawer class="sidenav" opened="true" mode="side">	</mat-drawer>	
+	<mat-drawer-content>
+
+		<!-- PAGE -->
+		<div class="page-content">
+			<button type="button" class="btn btn-danger">
+				Bootstrap
+			</button>
+		</div>
+
+	</mat-drawer-content>
+</mat-drawer-container>
+
+
+
+<!-- FOOTER -->

@@ -9,9 +9,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent {
 
 	@ViewChild('drawer') drawer: MatDrawer;
-	
+	today: number = Date.now();	
 
-	constructor() {
-		
-	}	
+	constructor() {	}	
 }

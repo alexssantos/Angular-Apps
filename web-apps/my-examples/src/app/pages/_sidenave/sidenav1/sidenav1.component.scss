@@ -1,0 +1,11 @@
+.page-wrapper {
+	border: dashed 1px rgba(255, 164, 164, 0.521);
+	min-height: 300px;
+    min-width: 300px;
+    resize: both;
+	overflow: auto;
+	padding: 20px;
+	
+	max-height: fit-content;	
+	max-width: fit-content;
+}

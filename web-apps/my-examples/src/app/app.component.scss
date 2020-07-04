@@ -39,9 +39,10 @@ $haeder-height: 62px;
 	}
 
 	.page-content {
-		height: 100%;		
-		padding-top: $haeder-height;
-		padding-bottom: $footer-default-height;		
+		min-height: 100%;			
+		height: auto;
+		padding-top: calc( #{$haeder-height} + 25px);
+		padding-bottom: calc( #{$footer-default-height} + 25px);		
 
 		align-items: center;
 		display: flex;

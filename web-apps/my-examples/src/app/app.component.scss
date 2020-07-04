@@ -38,16 +38,16 @@ $haeder-height: 62px;
         }
 	}
 
-	.page-content {
+	.page-wrap {
 		min-height: 100%;			
 		height: auto;
-		padding-top: calc( #{$haeder-height} + 25px);
-		padding-bottom: calc( #{$footer-default-height} + 25px);		
+		
+		padding-top: $haeder-height;
+		padding-bottom: $footer-default-height;		
 
-		align-items: center;
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		flex-wrap: wrap;		
 	}
 }
 

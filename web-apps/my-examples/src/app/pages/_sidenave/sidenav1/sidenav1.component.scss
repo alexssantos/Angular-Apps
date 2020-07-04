@@ -1,13 +1,25 @@
-.page-wrapper {
+:host {	
+	width: 100%;
+	padding: 30px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-content {
 	border: dashed 1px rgba(255, 164, 164, 0.521);
 
 	min-height: 300px;
     min-width: 300px;
-    resize: both;
 	padding: 20px;
+    resize: both;
 	
 	overflow: auto;
 	
 	max-height: fit-content;	
-	max-width: fit-content;
+	//max-width: fit-content; //NOT USE.
+	max-width: fill-available;
+	max-width: -webkit-fill-available;
+	width: 300px;
 }

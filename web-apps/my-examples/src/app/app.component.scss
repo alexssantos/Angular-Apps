@@ -1,15 +1,13 @@
+$footer-default-height: 48px;
+$haeder-height: 62px;
+
+
 .spacer {
 	flex-grow: 1;		//expande
 	flex-shrink: 1;		//enxuga
 	flex-basis: auto;	//percentagem
 }
 
-// .drawer-container {
-// 	width: 400px;
-// 	height: 100%;
-// 	margin: 12px;
-// 	border: 1px solid #555;
-// }
 
 .drawer-container {
 	height: 100%;
@@ -38,6 +36,17 @@
                 border-radius: 20px 0px 0px 20px;
             }
         }
+	}
+
+	.page-content {
+		height: 100%;		
+		padding-top: $haeder-height;
+		padding-bottom: $footer-default-height;		
+
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;		
 	}
 }
 

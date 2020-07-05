@@ -1,3 +1,14 @@
+$font-size: 16px;
+$font-family: 'Montserrat', sans-serif;
+
+$text-primary: #b6b6b6;
+$text-secondary: #ececec;
+
+$bg-primary: #23232e;
+$bg-secondary: #141418;
+
+$transition-speed: 6000ms;
+
 :host {	
 	width: 100%;
 	padding: 30px;
@@ -5,6 +16,9 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	font-family: $font-family;	
+	font-size: $font-size;
 }
 
 .page-content {
@@ -12,15 +26,90 @@
 		
 	height: 500px;
 	width: 800px;
-	min-height: 300px;
+	min-height: 500px;
     min-width: 300px;
 	max-height: fit-content;		
-	max-width: fill-available;
-	max-width: -webkit-fill-available;
+	max-width: stretch;
+	//max-width: -webkit-fill-available;
 	
 	padding: 20px;
-	
+
     resize: both;	
 	overflow: auto;
 
+	.my-card{
+		overflow-y: auto;
+		//height: stretch;
+		color: black;
+		background-color: white;
+		margin: 0px;
+		padding: 0px;	
+		
+		display: flex;
+		
+		.main-text {
+			//margin-left: 5rem;
+			padding: 1rem;
+		}
+		
+		.navbar {			
+			//overflow: scroll;			
+			background-color: $bg-primary;
+			min-width: 5rem;					
+			max-width: 5rem;	
+			padding: 0;
+			margin: 0;
+
+			.navbar-nav {						
+				width: 100%;
+				height: 100%;
+				
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+				
+				.nav-item {	
+					width: 100%;					
+					
+					.nav-link{
+						text-decoration: none;
+						color: $text-primary;
+						height: 4rem;												
+						//min-height: 4rem;												
+						
+						display: flex;								
+						align-items: center;
+
+						.link-text{
+							display: none;
+							margin-left: 1rem;
+						}
+						svg{
+							min-width: 1.6rem; 		// width é o minimo para aparecer o svg.
+							//max-height: 1.6rem; 	// melhor deixar alinhado só pela largura							
+							margin: 0 auto;			// centralizando unico item
+						}
+
+						// .fa-primary {color: #ff7eee;}					  
+						// .fa-secondary {	color: #df49a6; }
+						  
+					}
+				}
+			}
+
+			&:hover {
+				min-width: 12rem;
+				max-width: 12rem;	
+				
+				.link-text{
+					display: block;
+				}
+			}
+		}		
+	}
 }

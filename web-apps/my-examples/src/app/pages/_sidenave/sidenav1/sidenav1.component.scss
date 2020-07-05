@@ -9,17 +9,18 @@
 
 .page-content {
 	border: dashed 1px rgba(255, 164, 164, 0.521);
-
+		
+	height: 500px;
+	width: 800px;
 	min-height: 300px;
     min-width: 300px;
-	padding: 20px;
-    resize: both;
-	
-	overflow: auto;
-	
-	max-height: fit-content;	
-	//max-width: fit-content; //NOT USE.
+	max-height: fit-content;		
 	max-width: fill-available;
 	max-width: -webkit-fill-available;
-	width: 300px;
+	
+	padding: 20px;
+	
+    resize: both;	
+	overflow: auto;
+
 }

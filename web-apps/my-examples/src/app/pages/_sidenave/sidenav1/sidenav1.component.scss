@@ -1,13 +1,13 @@
 $font-size: 16px;
 $font-family: 'Montserrat', sans-serif;
 
-$text-primary: #b6b6b6;
+$text-primary: #d6d4d4;
 $text-secondary: #ececec;
 
 $bg-primary: #23232e;
 $bg-secondary: #141418;
 
-$transition-speed: 6000ms;
+$transition-speed: 600ms;
 
 :host {	
 	width: 100%;
@@ -60,6 +60,8 @@ $transition-speed: 6000ms;
 			padding: 0;
 			margin: 0;
 
+			transition: 300ms ease;
+
 			&:hover {
 				min-width: 15rem;
 				max-width: 15rem;	
@@ -87,15 +89,24 @@ $transition-speed: 6000ms;
 					
 					.nav-link{
 						text-decoration: none;
-						color: $text-primary;
+						color: $text-primary;						
 						height: 4rem;																		
 						
 						display: flex;								
-						align-items: center;						
+						align-items: center;		
+						
+						//efeito cinza quando NOT HOVER
+						filter: grayscale(100%) opacity(0.7);
+						transition: $transition-speed;
+
+						&:hover{
+							filter: grayscale(0%) opacity(1);
+							background-color: $bg-secondary;
+						}
 
 						.link-text{
 							display: none;
-							font-size: 0.8rem;
+							font-size: 0.9rem;
 							margin-left: 0.8rem;		//espaçamento fixo do icone							
 						}
 
@@ -107,8 +118,11 @@ $transition-speed: 6000ms;
 							margin: 0 1.8rem;		// mantem os itens a esqueda com espaçamento fixo.
 						}
 
-						// .fa-primary {color: #ff7eee;}					  
-						// .fa-secondary {	color: #df49a6; }						  
+						.fa-primary {
+							color: #ff7eee;
+							transition: $transition-speed;
+						}					  
+						//.fa-secondary {	color: #df49a6; }						  
 					}
 
 					//normalmente usado para icone de CONFIGS

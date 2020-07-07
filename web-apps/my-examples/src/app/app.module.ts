@@ -15,13 +15,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
 import { Sidenav1Component } from './pages/_sidenave/sidenav1/sidenav1.component';
 import { Sidenav2Component } from './pages/_sidenave/sidenav2/sidenav2.component';
+import { Form1Component } from './pages/_forms/form1/form1.component';
+import { Form2Component } from './pages/_forms/form2/form2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     Sidenav1Component,
-    Sidenav2Component
+    Sidenav2Component,
+    Form1Component,
+    Form2Component
   ],
   imports: [
     BrowserModule,

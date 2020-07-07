@@ -1,47 +1,235 @@
-<p>form1 works!</p>
+<div class="my-3">
+	<h3>1 - ngForm (Template Forms)</h3>
+	<h4>Modelo: Bootstrap</h4>
+</div>
 
-<div class="default">
-	<form>
+<div>
+	<form id="form1">
 		<div class="form-row">
 			<div class="col-md-4 mb-3">
 				<label for="validationDefault01">First name</label>
-				<input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault01"
+					placeholder="First name"
+					value="Mark"
+					required
+				/>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationDefault02">Last name</label>
-				<input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault02"
+					placeholder="Last name"
+					value="Otto"
+					required
+				/>
 			</div>
 			<div class="col-md-4 mb-3">
 				<label for="validationDefaultUsername">Username</label>
 				<div class="input-group">
 					<div class="input-group-prepend">
-						<span class="input-group-text" id="inputGroupPrepend2">@</span>
+						<span class="input-group-text" id="inputGroupPrepend2"
+							>@</span
+						>
 					</div>
-					<input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+					<input
+						type="text"
+						class="form-control"
+						id="validationDefaultUsername"
+						placeholder="Username"
+						aria-describedby="inputGroupPrepend2"
+						required
+					/>
 				</div>
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col-md-6 mb-3">
 				<label for="validationDefault03">City</label>
-				<input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault03"
+					placeholder="City"
+					required
+				/>
 			</div>
 			<div class="col-md-3 mb-3">
 				<label for="validationDefault04">State</label>
-				<input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault04"
+					placeholder="State"
+					required
+				/>
 			</div>
 			<div class="col-md-3 mb-3">
 				<label for="validationDefault05">Zip</label>
-				<input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault05"
+					placeholder="Zip"
+					required
+				/>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+				<input
+					class="form-check-input"
+					type="checkbox"
+					value=""
+					id="invalidCheck2"
+					required
+				/>
 				<label class="form-check-label" for="invalidCheck2">
 					Agree to terms and conditions
 				</label>
 			</div>
+		</div>
+		<button class="btn btn-primary" type="submit">Submit form</button>
+	</form>
+</div>
+
+<hr class="my-5" />
+
+<div>
+	<form novalidate #form2="ngForm" (ngSubmit)="submitForm2(form2)">
+
+		<pre>
+			{{form2.value | json}}
+			invalido: {{form2.invalid}}
+		</pre>
+
+		<div class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationDefault01">First name</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault01"
+					placeholder="First name"
+					value="Mark"
+					required
+					name="firstName"
+					ngModel
+					#firstName="ngModel"
+				/>
+				<small *ngIf="firstName.valid && firstName.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!firstName.valid && firstName.touched" class="form-text text-danger"> Campo Obrigatório </small>
+				<small></small>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationDefault02">Last name</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault02"
+					placeholder="Last name"
+					value="Otto"
+					required
+					name="lastName"
+					ngModel
+					#lastName="ngModel"
+				/>
+				<small *ngIf="lastName.valid && lastName.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!lastName.valid && lastName.touched" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationDefaultUsername">Username</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroupPrepend2"
+							>@</span
+						>
+					</div>
+					<input
+						type="text"
+						class="form-control"
+						id="validationDefaultUsername"
+						placeholder="Username"
+						aria-describedby="inputGroupPrepend2"
+						required
+						name="username"
+						ngModel
+						#username="ngModel"
+					/>
+				</div>
+				<small *ngIf="username.valid && username.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!username.valid && username.touched" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label for="validationDefault03">City</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault03"
+					placeholder="City"
+					required
+					name="city"
+					ngModel
+					#city="ngModel"
+				/>
+				<small *ngIf="city.valid && city.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!city.valid && city.touched" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+			<div class="col-md-3 mb-3">
+				<label for="validationDefault04">State</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault04"
+					placeholder="State"
+					required
+					name="state"
+					ngModel
+					#state="ngModel"
+				/>
+				<small *ngIf="state.valid && state.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!state.valid && state.touched" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+			<div class="col-md-3 mb-3">
+				<label for="validationDefault05">Zip</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault05"
+					placeholder="Zip"
+					required
+					name="zip"
+					ngModel
+					#zip="ngModel"
+				/>
+				<small *ngIf="zip.valid && zip.touched" class="form-text text-success"> OK </small>
+				<small *ngIf="!zip.valid && zip.touched" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-check">
+				<input
+					class="form-check-input"
+					type="checkbox"
+					value=""
+					id="invalidCheck1"
+					required
+					name="formCheck"
+					ngModel
+					#formCheck="ngModel"
+				/>				
+				<label class="form-check-label" for="invalidCheck1">
+					Agree to terms and conditions
+				</label>
+			</div>
+			<small *ngIf="formCheck.valid && formCheck.touched" class="form-text text-success"> OK </small>
+			<small *ngIf="!formCheck.valid && formCheck.touched" class="form-text text-danger"> Campo Obrigatório </small>
 		</div>
 		<button class="btn btn-primary" type="submit">Submit form</button>
 	</form>

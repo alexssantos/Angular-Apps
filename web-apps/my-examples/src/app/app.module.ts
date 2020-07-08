@@ -1,7 +1,7 @@
 //core angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -42,7 +42,8 @@ import { Form2Component } from './pages/_forms/form2/form2.component';
 		MatToolbarModule,
 		MatSidenavModule,
 		MatCardModule,
-		FormsModule
+		FormsModule,
+		ReactiveFormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

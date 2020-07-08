@@ -1,5 +1,5 @@
 <div class="my-3">
-	<h3>1 - ngForm (Template Forms)</h3>
+	<h3>1 - HTML Form</h3>
 	<h4>Modelo: Bootstrap</h4>
 </div>
 
@@ -100,11 +100,16 @@
 <hr class="my-5" />
 
 <div>
-	<form novalidate #form2="ngForm" (ngSubmit)="submitForm2(form2)">
+	<div class="my-3">
+		<h3>2 - Template Forms (ngForm)</h3>
+		<h4>Modelo: Bootstrap</h4>
+	</div>
+
+	<form novalidate #form2="ngForm" (ngSubmit)="submitForm(form2)">
 
 		<pre>
 			{{form2.value | json}}
-			invalido: {{form2.invalid}}
+			válido: {{form2.valid}}
 		</pre>
 
 		<div class="form-row">
@@ -234,3 +239,120 @@
 		<button class="btn btn-primary" type="submit">Submit form</button>
 	</form>
 </div>
+
+<hr class="my-5" />
+
+<div>
+	<div class="my-3">
+		<h3>3 - Reactive Forms (FormGroup/FormControl)</h3>
+		<h4>Modelo: Bootstrap</h4>
+	</div>
+	<form novalidate [formGroup]="formulario3">
+		<pre>
+			{{formulario3.value | json}}
+			valido: {{formulario3.valid}}
+		</pre>
+		<div class="form-row">
+			<div class="col-md-4 mb-3">
+				<label for="validationDefault01">First name</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault01"
+					placeholder="First name"
+					value="Mark"
+					required
+					formControlName="firstName"
+				/>
+				<small *ngIf="(formulario3.get('firstName').valid && formulario3.get('firstName').touched)" class="form-text text-success"> OK </small>
+				<small *ngIf="(!formulario3.get('firstName').valid && formulario3.get('firstName').touched)" class="form-text text-danger"> Campo Obrigatório </small>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationDefault02">Last name</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault02"
+					placeholder="Last name"
+					value="Otto"
+					required
+					formControlName="lastName"
+				/>
+			</div>
+			<div class="col-md-4 mb-3">
+				<label for="validationDefaultUsername">Username</label>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="inputGroupPrepend2"
+							>@</span
+						>
+					</div>
+					<input
+						type="text"
+						class="form-control"
+						id="validationDefaultUsername"
+						placeholder="Username"
+						aria-describedby="inputGroupPrepend2"
+						required
+						formControlName="userName"
+					/>
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				<label for="validationDefault03">City</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault03"
+					placeholder="City"
+					required
+					formControlName="city"
+				/>
+			</div>
+			<div class="col-md-3 mb-3">
+				<label for="validationDefault04">State</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault04"
+					placeholder="State"
+					required
+					formControlName="state"
+				/>
+			</div>
+			<div class="col-md-3 mb-3">
+				<label for="validationDefault05">Zip</label>
+				<input
+					type="text"
+					class="form-control"
+					id="validationDefault05"
+					placeholder="Zip"
+					required
+					formControlName="zip"
+				/>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="form-check">
+				<input
+					class="form-check-input"
+					type="checkbox"
+					value=""
+					id="invalidCheck3"
+					required
+					formControlName="formCbx"
+				/>
+				<label class="form-check-label" for="invalidCheck3">
+					Agree to terms and conditions
+				</label>
+			</div>
+		</div>
+		<button class="btn btn-primary" type="button" (click)="printFormGroup()">
+			Submit form
+		</button>
+	</form>
+</div>
+
+<hr class="my-4" />

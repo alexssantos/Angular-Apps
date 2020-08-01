@@ -7,5 +7,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 })
 export class AppComponent {
 
+	public currentTab: number;
+
 	constructor() { }
 }

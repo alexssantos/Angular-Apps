@@ -349,7 +349,10 @@
 				</label>
 			</div>
 		</div>
-		<button class="btn btn-primary" type="button" (click)="printFormGroup()">
+		<button class="btn btn-primary" type="button" 
+			(click)="printFormGroup()"
+			[disabled]="formulario3.invalid"
+		>
 			Submit form
 		</button>
 	</form>

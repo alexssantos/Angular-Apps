@@ -18,27 +18,13 @@
 
 html, body {	
 	//height: 100vh; // WARNING: NAO USAR 'vh'.
-	min-height: 100%;	
-	overflow-y: none;	
+	height: 100%;	
 }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-	
-.page-content {
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	//ativando o scroll: width 100% -> 100vh
-	//overflow-y: scroll;
-
- 	//min-width: 550px;
-	min-height: 70vh;
-
-	height: 100vh;
-
-	padding-top: 70px;
-	padding-bottom: 70px;
+body { 
+	margin: 0; 
+	font-family: Roboto, "Helvetica Neue", sans-serif; 
+	overflow-y: none;
 }
 
 

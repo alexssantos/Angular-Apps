@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-examples": {
+    "kakashi": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-examples",
+            "outputPath": "dist/kakashi",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -70,18 +70,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-examples:build"
+            "browserTarget": "kakashi:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "my-examples:build:production"
+              "browserTarget": "kakashi:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-examples:build"
+            "browserTarget": "kakashi:build"
           }
         },
         "test": {
@@ -119,18 +119,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "my-examples:serve"
+            "devServerTarget": "kakashi:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "my-examples:serve:production"
+              "devServerTarget": "kakashi:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "my-examples",
+  "defaultProject": "kakashi",
   "cli": {
     "analytics": "cdc4d9d8-9488-4650-9404-15d0d93784f7"
   }

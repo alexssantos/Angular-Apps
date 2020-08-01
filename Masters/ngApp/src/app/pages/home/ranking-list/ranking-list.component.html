@@ -1,0 +1,44 @@
+<div class="row mb-2 d-flex justify-content-around">
+	<div class="col-1 text-center font-weight-bold small">Foto</div>
+	<div class="col-4 text-left font-weight-bold small">Nome</div>
+	<div class="col-4 text-left font-weight-bold small">KPIs</div>
+	<div class="col-2 text-center font-weight-bold small">Posição</div>
+</div>
+
+<div class="transition">
+	<mat-list>
+		<div class="box-item" *ngFor="let USER of userList">
+			<mat-list-item matRipple class="mat-elevation-z4">
+				<img matListAvatar [src]="getPhotoOrDefault(USER.photoUrl)" alt="Photo of a Shiba Inu">
+
+				<div class="line-content row ml-2 my-auto align-items-center">
+					<div class="col-3">
+						<p>{{ USER.name }}</p>
+						<p>{{ USER.nickName }}</p>
+					</div>
+					<div class="col-6 my-auto p-0">						
+						<div class="box-kpis row d-flex justify-content-around flex-wrap">							
+							<div class="kpi justify-content-center flex-nowrap" *ngFor="let KPI of USER.scoreKpis; let i = index">
+								<img class="mr-2" [src]="KPI.iconUrl" width="20px" height="20px" />
+								<button class="btn btn-{{ (USER.kpiActiveIndex == i) ? '' : 'outline-' }}{{KPI.classWrapperName}} btn-sm">
+									{{ KPI.score }} pts
+								</button>
+								<!-- <span class="badge badge-{{ KPI.classWrapperName }}">
+								</span> -->
+							</div>						
+						</div>
+					</div>
+					<div class="col-2" style="text-align: right;">
+						{{ USER.position }}
+					</div>
+					<div class="col-1" style="text-align: left;">
+						<i class="fa {{USER.lastPosition == 0 ? 'fa-2x' : 'fa-3x'}}" 
+						[ngClass]="getClassPositionIcon(USER.position, USER.lastPosition)"
+						[style.color]="getColorIcon(USER.position, USER.lastPosition)">
+					</i>
+					</div>
+				</div>
+			</mat-list-item>
+		</div>
+	</mat-list>
+</div>

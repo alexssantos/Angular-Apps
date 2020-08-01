@@ -1,0 +1,21 @@
+// classes autogeradas pelo angular nos campos
+input.ng-touched, select.ng-touched {
+	&.ng-valid { border: 1px solid green;}
+	&.ng-invalid { border: 1px solid red;}
+}
+
+/* equivale a ...
+input.ng-touched.ng-valid {
+	border: 1px solid green;
+}
+input.ng-touched.ng-invalid {
+	border: 1px solid red;
+}
+select.ng-touched.ng-valid {
+	border: 1px solid green;
+}
+select.ng-touched.ng-invalid {
+	border: 1px solid red;
+}
+
+*/

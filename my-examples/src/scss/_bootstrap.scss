@@ -1,0 +1,32 @@
+// =====================================================
+// =========== BOOTSTRAP ================
+// =====================================================
+
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+
+
+// Casos de personalização de mediaquery padrao do bootstrap. 
+// TEM Q COPIAR NO SCSS DO COMPONENT
+@import "node_modules/bootstrap/scss/_functions.scss";
+@import "node_modules/bootstrap/scss/_variables.scss";
+@import "node_modules/bootstrap/scss/_mixins.scss";
+
+// XL: Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-down(xl) { }
+
+// LG:  Large devices (desktops, 992px and up)
+@include media-breakpoint-down(lg) { }
+
+// MD: Medium devices (tablets, 768px and up)
+@include media-breakpoint-down(md) { }
+
+// SM: Small devices (landscape phones, 576px and up)
+@include media-breakpoint-down(sm) { 
+	// .page-content {
+	// 	min-width: 420px;
+	// 	padding-bottom: calc(70px * 2);
+	// }
+}
+
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap

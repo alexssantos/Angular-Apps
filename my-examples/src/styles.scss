@@ -1,0 +1,37 @@
+
+
+// BOOTSTRAP
+@import './scss/bootstrap';
+
+// FONTS
+@import './scss/fonts';
+
+// ANGULAR MATERIAL
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+//@import "./scss/my-material";
+
+
+
+
+// =====================================================
+// GLOBAL
+
+html, body {	
+	//height: 100vh; // WARNING: NAO USAR 'vh'.
+	height: 100%;	
+}
+
+body { 
+	margin: 0; 
+	font-family: Roboto, "Helvetica Neue", sans-serif; 
+	overflow-y: none;
+}
+
+
+.debug-red{
+	border: 2px solid red;
+}
+
+.debug-blue{
+	border: 2px solid blue;
+}

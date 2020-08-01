@@ -1,0 +1,21 @@
+<div class="page-content">
+	<div class="row">
+		<!-- Coluna esquerda -->
+		<!-- <div class="col-sm-6">			
+		</div> -->
+		
+		<!-- Coluna DIREITA -->
+		<div *ngIf="signUpPage; else formLogin">
+			<div class="d-flex justify-content-center align-items-center">
+				<app-sign-up (eventSignUp)="changeForm($event)" [@animation-painel]="statePainel">
+				</app-sign-up>
+			</div>
+		</div>
+		<ng-template #formLogin>
+			<div class="d-flex justify-content-center align-items-center">
+				<app-login (eventLogin)="changeForm($event)" [@animation-painel]="statePainel">
+				</app-login>
+			</div>
+		</ng-template>
+	</div>
+</div>

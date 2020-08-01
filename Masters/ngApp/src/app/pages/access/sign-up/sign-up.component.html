@@ -1,0 +1,69 @@
+<div class="card">
+	<div class="card-body">
+		<!-- LOGO IMAGE -->
+		<div class="card-title"> CADASTRO </div>
+
+		<form [formGroup]="formSignup" (ngSubmit)="submitNewUser()">
+			<div class="form-group">
+				<input
+					type="email"
+					class="form-control"
+					placeholder="E-mail"
+					formControlName="email"
+				/>
+			</div>
+			<div class="form-group">
+				<input
+					type="text"
+					class="form-control"
+					placeholder="Nome completo"
+					formControlName="full_name"
+				/>
+			</div>
+			<div class="form-group">
+				<input
+					type="text"
+					class="form-control"
+					placeholder="Nome de usuário"
+					formControlName="user_name"
+				/>
+			</div>
+			<div class="form-group">
+				<input
+					type="password"
+					class="form-control"
+					placeholder="Senha"
+					formControlName="password"
+				/>
+			</div>
+			<button type="submit" class="btn btn-primary btn-block">
+				<h5 *ngIf="!tryingRequest"> Cadastre-se </h5>
+				<div *ngIf="tryingRequest" class="spinner-border"></div>
+			</button>
+		</form>
+		<hr />		
+		<p class="small text-center">
+			Ao cadastrar-se, você concorda com nossos <b>Termos</b> e
+			<b>Política de Privacidade</b>.
+		</p>
+
+		<hr />
+		<p class="text-danger text-center">
+			{{ erroMsg }}
+		</p>
+		<p class="text-info text-center">
+			{{ sucessMsg }}
+		</p>
+	</div>
+</div>
+<br />
+<div class="card">
+	<div class=" card-body">
+		<p class="card-text">
+			Tem uma conta?
+			<button class="card-link btn btn-outline-primary" (click)="showLoginPainel()">
+				Faça login
+			</button>
+		</p>
+	</div>
+</div>

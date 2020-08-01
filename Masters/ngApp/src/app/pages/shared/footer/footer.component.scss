@@ -1,0 +1,46 @@
+footer{
+	z-index: 999;
+	background-color: white;
+
+	// Nao sei 	// tamanho // dispersao
+	box-shadow: 0 -1px 1rem rgba(0, 0, 0, 0.15) !important;
+
+	li{
+		background-color: none;
+	}
+
+	a{
+		color: black;
+	}
+
+	.color-brown{
+		color: brown;
+	}
+
+	
+}
+
+
+// ===========================================
+// MEDIA QUERIES
+// ===========================================
+
+@import "node_modules/bootstrap/scss/_functions.scss";
+@import "node_modules/bootstrap/scss/_variables.scss";
+@import "node_modules/bootstrap/scss/_mixins.scss";
+
+// lasdscape less than 767.98px
+@include media-breakpoint-down(sm) { 
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+
+		.credits {
+			margin-left: auto;
+			margin-right: auto;
+			padding: 15px;
+		}
+	}
+}

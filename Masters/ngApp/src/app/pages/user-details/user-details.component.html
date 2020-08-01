@@ -1,0 +1,178 @@
+<div class="page-content">
+	<div class="wrap-page">
+		<h1 class="title-page" (click)="teste()">User Details</h1>
+
+		<div class="row d-flex justify-content-between">
+			<!-- LADO ESQUERDO -->
+			<div class="order-1 col-12">
+
+				<!-- VIEW PROFILE  -->
+				<div class="view-profile col-12 mb-4">
+
+					<!-- PROFILE INFOS -->
+					<div class="row profile-infos d-flex justify-content-center">
+						<div class="profile-photo m-0">
+							<img [src]="profileImg" class="rounded-circle" width="100px" height="100px" />
+						</div>
+						<div class="row profile-data flex-grow-1 m-0">
+							<div class="col-7 profile-text">
+								<div>
+									<p class="profile-name">
+										{{ (user.firstName) ? user.firstName + ' ' + user.lastName : "- - -" }}										
+									</p>
+									<span class="badge badge-pill badge-info font-weight-light">ADMIN</span>
+								</div>
+								<p class="profile-position">
+									{{(user.position) ? user.position : "---"}}
+								</p>
+								<span class="active-status mat-elevation-z2">
+									<i class="fas fa-circle mr-1"></i>
+									ONLINE</span>
+							</div>
+							<div class="col-5 profile-text">
+								<p class="profile-name">
+									Company
+								</p>
+								<p class="profile-position">
+									{{ (user.company) ? user.company : "---" }}
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- PROFILE SCORES -->
+					<div class="row score mt-4 mx-auto">
+						<div *ngFor="let label of scoreBoxesLabels; let i = index;" class="score__box">
+							<div class="score__title">{{label}}</div>
+							<div class="score__value">{{ (userKpis.length > 0) ? userKpis[i].score : "---"}}</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!--  FORM -->
+				<div class="m-4 d-flex flex-nowrap justify-content-center">
+					<h4 >Update Info</h4>
+					<i class="far fa-edit fa-2x my-auto ml-2 edit-infos" (click)="editInfos()" [ngStyle]="{'color': (editMode) ? 'red' : ''}"></i>
+				</div>
+				<div class="col-12 d-flex justify-content-center">
+					<form class="needs-validation">
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="firstName">First name</label>
+								<input type="text" [(ngModel)]="user.firstName" class="form-control" name="firstName" id="firstName" placeholder="Maria..." [disabled]="!editMode" required>
+								<div class="invalid-feedback">
+									Valid first name is required.
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="lastName">Last name</label>
+								<input type="text" [(ngModel)]="user.lastName" name="lastName" class="form-control" id="lastName" placeholder="Da Silva..." [disabled]="!editMode" required>
+								<div class="invalid-feedback">
+									Valid last name is required.
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="username">Username</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">@</span>
+								</div>
+								<input type="text" [(ngModel)]="user.userName" class="form-control" name="username" id="username" placeholder="Username" [disabled]="!editMode" required>
+								<div class="invalid-feedback" style="width: 100%;">
+									Your username is required.
+								</div>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="email">Email <span class="text-muted">(Optional)</span></label>
+							<input type="email" class="form-control" [(ngModel)]="user.email" name="email" id="email" placeholder="you@example.com" disabled>
+							<div class="invalid-feedback">
+								Please enter a valid email address for shipping updates.
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="company">Company</label>
+							<input type="text" class="form-control" [(ngModel)]="user.company" name="company" id="company" placeholder="Example Inc..." [disabled]="!editMode" required>
+							<div class="invalid-feedback">
+								Please enter your Company Name.
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label for="position">Position</label>
+							<input type="text" class="form-control" [(ngModel)]="user.position" name="position" id="position" placeholder="Software Engineer..." [disabled]="!editMode" required>
+							<div class="invalid-feedback">
+								Please enter your current Position.
+							</div>
+						</div>
+
+						<div class="mb-3" *ngFor="let address of user.address;let j = index;">
+							<label for="address">Address {{j+1}}
+								<span *ngIf="j > 0" class="text-muted">(Optional)</span>
+							</label>
+							<input type="text" class="form-control" [(ngModel)]="address" name="address" id="address" placeholder="1234 Main St" [disabled]="!editMode" required>
+							<div class="invalid-feedback">
+								Please enter your shipping address.
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-4 mb-3">
+								<label for="country">Country</label>
+								<select class="custom-select d-block w-100" [(ngModel)]="user.country" name="country" id="country" [disabled]="!editMode" required>
+									<option value="">Select...</option>
+									<option>Brasil</option>
+								</select>
+								<div class="invalid-feedback">
+									Please select a valid country.
+								</div>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="state">State</label>
+								<select class="custom-select d-block w-100" [(ngModel)]="user.state" name="state" id="state" [disabled]="!editMode" required>
+									<option value="">Select...</option>
+									<option>Rio de Janeiro</option>
+									<option>São Paulo</option>
+									<option>Curitiba</option>
+								</select>
+								<div class="invalid-feedback">
+									Please provide a valid state.
+								</div>
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="zip">Zip</label>
+								<input type="text" class="form-control"  [(ngModel)]="user.zipCode" name="zip" id="zip" placeholder="12345-678" [disabled]="!editMode" required>
+								<div class="invalid-feedback">
+									Zip code required.
+								</div>
+							</div>
+						</div>
+						<hr class="mb-4">						
+						<button class="btn btn-primary btn-lg btn-block" type="button" (click)="saveUserDetails()" [disabled]="!editMode"> SAVE </button>
+						<hr class="mb-2">						
+						<button class="btn btn-outline-danger btn-lg btn-block" type="button" (click)="deleteUserDetails()"> DELETE ACCOUNT </button>
+					</form>
+				</div>
+			</div>
+
+			<!-- LADO DIREITO -->
+			<!-- <div *ngIf="!isSmallScreen" class="order-2 col-4">
+				<div class="profile-status mat-elevation-z1">
+                    <i class="fas fa-key mr-1"></i> Titulo do card
+
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>
+
+
+<!-- 
+	INSPIRAÇÃO
+	https://dribbble.com/shots/3898068-User-Profile
+ -->

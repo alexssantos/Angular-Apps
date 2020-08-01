@@ -1,0 +1,37 @@
+<div class="px-md-4 pt-1 bg-white border-bottom shadow-sm fixed-top">
+	<div class="d-flex flex-md-wrap flex-md-row flex-row align-items-center">
+		<!-- col-4 col-sm-3 col-md-3 -->
+		<div class="d-flex flex-nowrap logo" (click)="goToHome()">
+			<img [src]="logoImg" class="logo-img p-1" width="20%" height="20%">
+			<h3 class="ml-1 pt-1 font-weight-bold">Masters</h3>
+		</div>
+
+		<!-- TODO: HABILITAR EM MEDIA-QUERY PARA WIDTH > 990px  -->
+		<nav *ngIf="!isAccessPage" mat-tab-nav-bar class="my-mat-tabs font-weight-bold mt-n1">
+			<a mat-tab-link *ngFor="let tab of navLinks" 
+				[routerLink]="[tab.link]" 
+				routerLinkActive
+				#rla="routerLinkActive" 
+				[active]="rla.isActive">
+				<i class="fa {{tab.icon}} mr-2"></i> {{tab.label}}
+			</a>
+		</nav>
+
+		<div *ngIf="!isAccessPage" class="btn pull-right ml-auto right mt-n1">
+			<button mat-raised-button [matMenuTriggerFor]="menu" class="mr-2">Pages</button>
+
+			<!-- TODO: ESCONDER em media-query para WIDTH menor que 845px  -->
+			<mat-menu #menu="matMenu" class="mt-2">
+				<button mat-menu-item *ngFor="let tab of navLinks" 					
+					[routerLink]="[tab.link]" 
+					[ngStyle]="{'background-color' : activeLinkIndex===tab.index ? 'rgb(224, 211, 255, 0.8)' : '' }">
+					<i class="fa {{tab.icon}} mr-2"></i> {{tab.label}}
+				</button>							
+			</mat-menu>
+			<button mat-raised-button color="primary" (click)="logout()" >Sair</button>
+		</div>
+	</div>
+</div>
+
+<!-- <hr> -->
+<!--LINE - End Header -->

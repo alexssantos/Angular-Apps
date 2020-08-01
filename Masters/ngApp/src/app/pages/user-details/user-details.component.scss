@@ -1,0 +1,173 @@
+//remover espço do header e footer. Para evitar ficar abaixo.
+$roboto: 'Roboto', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$montSerratAlternative: 'Montserrat Alternates', sans-serif;
+$base-font: $montserrat;
+$profile-photo-length: 100px;
+
+.page-content {
+	background-color: #F6F6F6;
+	
+	.wrap-page{		
+		//border: 1px dotted black;
+
+		min-height: 95vh;
+		//height: 100%;
+		width: 85%;
+		border-radius: 5px;
+		
+		//overflow-y: auto;
+		
+		.title-page{
+			font-family: $base-font;
+			font-weight: 200;
+			font-size: 42px;
+			margin-bottom: 2rem;
+		}
+		
+		.view-profile {			
+			
+			.profile-infos {
+				//border: 1px dotted rgb(252, 23, 23);
+
+				.profile-photo{
+					height: $profile-photo-length;
+					min-height: $profile-photo-length;
+					width: $profile-photo-length;
+					min-width: $profile-photo-length;
+				}
+
+				.profile-text{
+
+					.profile-name {
+						display: inline-flex;
+						justify-content: flex-start;
+						align-items: flex-end;
+						flex-wrap: nowrap;
+						
+						margin-top: 12px;
+						margin-left: 15px;
+						margin-bottom: 0px;
+
+						font-family: $roboto;
+						font-weight: 700;
+						font-size: 20px ;
+							
+						
+					}
+
+					.badge {
+						font-size: 10px;
+						background-color: rgb(143, 143, 143);
+
+						margin-bottom: 7px;
+						margin-left: 10px;
+
+						padding-top: 5px;					
+						padding-bottom: 5px;
+						padding-left: 10px;					
+						padding-right: 10px;
+					}
+
+					.profile-position {
+						font-family: $base-font;
+						font-size: 14px ;
+						color: rgb(143, 143, 143);
+						
+						margin-bottom: 5px;
+						margin-left: 15px;
+					}
+
+					.active-status {
+						color: rgb(46, 187, 41);
+						
+						padding-left: 15px;
+						padding-top: 5px;
+						padding-right: 20px;
+						padding-bottom: 5px;
+						
+						font-family: $base-font;
+						font-weight: 700;
+						font-size: 12px ;
+						
+						border-top-left-radius: 20px;
+						border-bottom-left-radius: 20px;
+						border-top-right-radius:  20px;
+						border-bottom-right-radius:  20px;
+
+						&:hover {
+							cursor: pointer;
+						}
+
+						&:active {
+							box-shadow: 
+								0px 2px 1px -1px rgba(0, 0, 0, 0.2), 
+								0px 1px 1px 0px rgba(0, 0, 0, 0.14), 
+								0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+						}
+					}
+				}
+			}
+
+			.score {
+                //border: dotted 1px red;
+				display: flex;				
+				flex-wrap: wrap;
+				justify-content: center;
+                align-items: center;
+
+				height: 100%;     
+                
+                font-family: $montserrat;				
+
+                &__box {
+                    display: flex;
+                    flex-direction: column;
+                    //justify-content: space-between;
+
+                    height: 100px;
+                    width: calc(100% / 4);
+                    min-width: 175px;                                        
+                }
+
+                &__title {
+                    vertical-align: bottom;
+                    color: gray;
+                    
+                    font-weight: bolder;
+                    font-size: 12px;        
+                    
+                    min-height: 40px;                    
+                    padding-left: 15px;
+                }
+
+                &__value {                    
+                    font-size: 38px;
+                    
+                    max-height: 50px;
+                    padding-left: 15px;
+
+                    border-left: 1px rgb(220, 220, 220) solid;                    
+                    border-bottom: 1px rgb(220, 220, 220) solid;
+                }
+			}
+		}
+		
+		.profile-card-1 {
+			padding: 0px;
+		}
+		
+		.profile-status{
+			
+			background-color: white;
+			min-height: 450px;
+		}		
+
+		.edit-infos {
+			&:hover {
+				cursor: pointer;
+				color: red;
+			}
+		}
+	}	
+}

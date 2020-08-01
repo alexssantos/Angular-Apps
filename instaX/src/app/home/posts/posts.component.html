@@ -1,0 +1,20 @@
+<div *ngIf="dataPost">
+	<div class="row" *ngFor="let post of dataPost.postList">
+		<div class="col d-flex justify-content-center">
+			<div class="card">
+
+				<div class="card-body">
+					<p class="card-text"><strong>{{dataPost.userDetail.fullName || ''}}</strong></p>
+				</div>
+
+				<img class="card-img" [src]="post.photoUrlFull" />
+
+				<div class="card-body">
+					<p class="card-text"><strong>{{dataPost.userDetail.userName}}</strong> {{post.title}}</p>
+					<hr />
+					<input type="text" class="form-control comentario" placeholder="Adicione um comentário..." />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
